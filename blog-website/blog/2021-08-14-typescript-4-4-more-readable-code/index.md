@@ -1,12 +1,16 @@
 ---
+slug: typescript-4-4-more-readable-code
 title: 'TypeScript 4.4 and more readable code'
 authors: johnnyreilly
-tags: [TypeScript, Control Flow Analysis of Aliased Conditions]
+tags: [typescript]
 image: ./reactions-on-github.webp
 hide_table_of_contents: false
+description: 'TypeScript 4.4 introduces "Control Flow Analysis of Aliased Conditions" which improves code readability by more expressive and less repetitive code.'
 ---
 
 An exciting feature is shipping with TypeScript 4.4. It has the name ["Control Flow Analysis of Aliased Conditions"](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/#cfa-aliased-conditions) which is quite a mouthful. This post unpacks what this feature is, and demonstrates the contribution it makes to improving the readability of code.
+
+<!--truncate-->
 
 ## Updated 30th September 2021
 
@@ -111,3 +115,7 @@ This feature is a tremendous addition to the TypeScript language. It should have
 To read more, do check out the excellent [TypeScript 4.4 beta release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/#cfa-aliased-conditions). There's also some other exciting feature shipping with this release as well. Thanks very much to the TypeScript team for once again improving the language, and making a real contribution to people being able to write readable code.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/typescript-4-4-and-more-readable-code/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/typescript-4-4-and-more-readable-code/" />
+</head>

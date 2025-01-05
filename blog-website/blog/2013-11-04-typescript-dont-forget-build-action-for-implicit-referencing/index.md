@@ -1,11 +1,15 @@
 ---
+slug: typescript-dont-forget-build-action-for-implicit-referencing
 title: "TypeScript: Don't forget Build Action for Implicit Referencing..."
 authors: johnnyreilly
-tags: [TypeScriptCompile, BuildAction, DefinitelyTyped, TypeScript, NuGet]
+tags: [definitely typed, typescript]
 hide_table_of_contents: false
+description: 'TypeScript files in Visual Studio now implicitly reference each other. This caused problems for some projects and its important to check file settings.'
 ---
 
 As part of the [known breaking changes between 0.9 and 0.9.1](https://typescript.codeplex.com/wikipage?title=Known%20breaking%20changes%20between%200.8%20and%200.9&referringTitle=Documentation) there was this subtle but significant switch:
+
+<!--truncate-->
 
 > In Visual Studio, all TypeScript files in a project are considered to be referencing each other
 >

@@ -1,14 +1,18 @@
 ---
+slug: strongly-typing-react-query-s-usequeries
 title: 'react-query: strongly typing useQueries'
 authors: johnnyreilly
 image: ./strongly-typing-usequeries.webp
-tags: [useQueries, react-query]
+tags: [react]
 hide_table_of_contents: false
+description: 'Learn how to strongly type `useQueries` in `react-query` with `useQueriesTyped`. A wrapper function provides the strongly-typed API.'
 ---
 
 `react-query` has a weakly typed hook named `useQueries`. It's possible to turn that into a strong typed hook; this post shows you how.
 
 ![title image that says "react-query: strongly typings useQueries"](strongly-typing-usequeries.webp)
+
+<!--truncate-->
 
 ## Updated April 2022
 
@@ -30,7 +34,7 @@ function App({ users }) {
         queryKey: ['user', user.id],
         queryFn: () => fetchUserById(user.id),
       };
-    })
+    }),
   );
 }
 ```
@@ -46,7 +50,7 @@ This returns an array of [`UseQueryResult`](https://github.com/tannerlinsley/rea
 ```ts
 export type UseQueryResult<
   TData = unknown,
-  TError = unknown
+  TError = unknown,
 > = UseBaseQueryResult<TData, TError>;
 ```
 
@@ -64,7 +68,7 @@ import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
 type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
 
 export function useQueriesTyped<TQueries extends readonly UseQueryOptions[]>(
-  queries: [...TQueries]
+  queries: [...TQueries],
 ): {
   [ArrayElement in keyof TQueries]: UseQueryResult<
     TQueries[ArrayElement] extends { select: infer TSelect }
@@ -82,7 +86,7 @@ export function useQueriesTyped<TQueries extends readonly UseQueryOptions[]>(
 } {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return useQueries(
-    queries as UseQueryOptions<unknown, unknown, unknown>[]
+    queries as UseQueryOptions<unknown, unknown, unknown>[],
   ) as any;
 }
 ```
@@ -233,7 +237,7 @@ Well, supplying `queryFn`s with different signatures looks like this:
 ```ts
 const result = useQueriesTyped(
   { queryKey: 'key1', queryFn: () => 1 },
-  { queryKey: 'key2', queryFn: () => 'two' }
+  { queryKey: 'key2', queryFn: () => 'two' },
 );
 // const result: [QueryObserverResult<number, unknown>, QueryObserverResult<string, unknown>]
 
@@ -251,7 +255,7 @@ Next let's look at a `.map` example with identical types in our supplied array:
 
 ```ts
 const resultWithAllTheSameTypes = useQueriesTyped(
-  ...[1, 2].map((x) => ({ queryKey: `${x}`, queryFn: () => x }))
+  ...[1, 2].map((x) => ({ queryKey: `${x}`, queryFn: () => x })),
 );
 // const resultWithAllTheSameTypes: QueryObserverResult<number, unknown>[]
 
@@ -266,7 +270,10 @@ Finally let's look at how `.map` handles arrays with different types of elements
 
 ```ts
 const resultWithDifferentTypes = useQueriesTyped(
-  ...[1, 'two', new Date()].map((x) => ({ queryKey: `${x}`, queryFn: () => x }))
+  ...[1, 'two', new Date()].map((x) => ({
+    queryKey: `${x}`,
+    queryFn: () => x,
+  })),
 );
 //const resultWithDifferentTypes: QueryObserverResult<string | number | Date, unknown>[]
 

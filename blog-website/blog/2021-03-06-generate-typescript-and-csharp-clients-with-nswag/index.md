@@ -1,12 +1,16 @@
 ---
+slug: generate-typescript-and-csharp-clients-with-nswag
 title: 'NSwag: TypeScript and CSharp client generation based on an API'
 authors: johnnyreilly
-tags: [NSwag, TypeScript, CSharp, API]
+tags: [swagger, c#, azure, typescript]
 image: ./use-generated-client.gif
 hide_table_of_contents: false
+description: 'NSwag simplifies APIs by auto-generating OpenAPI specs and clients. Learn to create TypeScript clients from NSwag using a .NET console app.'
 ---
 
 Generating clients for APIs is a tremendous way to reduce the amount of work you have to do when you're building a project. Why handwrite that code when it can be auto-generated for you quickly and accurately by a tool like [NSwag](https://github.com/RicoSuter/NSwag)? To quote the docs:
+
+<!--truncate-->
 
 > The NSwag project provides tools to generate OpenAPI specifications from existing ASP.NET Web API controllers and client code from these OpenAPI specifications. The project combines the functionality of Swashbuckle (OpenAPI/Swagger generation) and AutoRest (client generation) in one toolchain.
 
@@ -276,8 +280,8 @@ In the root of the project we're going to add the following `scripts`:
 
 ```json
 "generate-client:server-app": "start-server-and-test generate-client:server-app:serve http-get://localhost:5000/swagger/v1/swagger.json generate-client:server-app:generate",
-    "generate-client:server-app:serve": "cross-env ASPNETCORE_URLS=http://*:5000 ASPNETCORE_ENVIRONMENT=Development dotnet run --project src/server-app/API --no-launch-profile",
-    "generate-client:server-app:generate": "dotnet run --project src/server-app/APIClientGenerator http://localhost:5000/swagger/v1/swagger.json src/client-app/src/clients.ts TypeScript",
+"generate-client:server-app:serve": "cross-env ASPNETCORE_URLS=http://*:5000 ASPNETCORE_ENVIRONMENT=Development dotnet run --project src/server-app/API --no-launch-profile",
+"generate-client:server-app:generate": "dotnet run --project src/server-app/APIClientGenerator http://localhost:5000/swagger/v1/swagger.json src/client-app/src/clients.ts TypeScript",
 ```
 
 Let's walk through what's happening here. Running `npm run generate-client:server-app` will:
@@ -358,4 +362,8 @@ Inside the `React.useEffect` above you can see we create a new instance of the a
 
 As you an see we're loading data from the server using our auto-generated client. We're reducing the amount of code we have to write _and_ we're reducing the likelihood of errors.
 
-_This post was originally posted on [LogRocket](https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/)._
+This post was originally posted on [LogRocket](https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/).
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/" />
+</head>

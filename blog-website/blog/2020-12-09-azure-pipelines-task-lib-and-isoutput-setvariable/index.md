@@ -1,13 +1,17 @@
 ---
+slug: azure-pipelines-task-lib-and-isoutput-setvariable
 title: 'azure-pipelines-task-lib and isOutput setVariable'
 authors: johnnyreilly
-tags: [azure-pipelines-task-lib, Azure Pipelines, custom task]
+tags: [azure pipelines]
 hide_table_of_contents: false
+description: 'This is a workaround for custom Azure Pipelines task extension to output variable since the library does not support "isOutput=true."'
 ---
 
 Some blog posts are insightful treatises on the future of web development, some are "here's how I solved my problem". This is most assuredly the latter.
 
 I'm writing an [custom pipelines task extension for Azure Pipelines](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). It's written with TypeScript and the [azure-pipelines-task-lib](https://github.com/microsoft/azure-pipelines-task-lib).
+
+<!--truncate-->
 
 The pipeline needs to output a variable. Azure Pipelines does that using the `setvariable` command combined with [isOutput=true](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#set-a-multi-job-output-variable). This looks something like this: `##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"`.
 
@@ -31,7 +35,7 @@ import * as os from 'os';
 export function setOutputVariable(
   name: string,
   val: string,
-  secret = false
+  secret = false,
 ): void {
   // use the implementation of setVariable to set all the internals,
   // then subsequently set the output variable manually
@@ -48,7 +52,7 @@ export function setOutputVariable(
       isOutput: 'true',
       issecret: (secret || false).toString(),
     },
-    varValue
+    varValue,
   );
 }
 

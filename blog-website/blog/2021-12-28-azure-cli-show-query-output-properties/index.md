@@ -1,14 +1,18 @@
 ---
+slug: azure-cli-show-query-output-properties
 title: 'Query deployment outputs with the Azure CLI'
 authors: johnnyreilly
-tags: [Azure CLI, deployment outputs, bash, jq, GitHub Actions]
+tags: [github actions, azure]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Discover how to query Azure deployment outputs using the Azure CLI, bash, and jq, and convert them to GitHub Action job outputs.'
 ---
 
 It's often desirable to query the outputs of deployments to Azure. This post demonstrates how to do this using the Azure CLI, bash and jq. It also shows how to generically convert deployment outputs to GitHub Action job outputs.
 
 ![title image reading "Query deployment outputs with the Azure CLI" with the Azure logo and the Azure Cloud Shell in the background](title-image.png)
+
+<!--truncate-->
 
 ## Deployment outputs
 
@@ -86,6 +90,6 @@ echo $DEPLOYMENT_OUTPUTS | jq -c '. | to_entries[] | [.key, .value.value]' |
     OUTPUT_NAME=$(echo "$c" | jq -r '.[0]')
     OUTPUT_VALUE=$(echo "$c" | jq -r '.[1]')
     echo "setting output $OUTPUT_NAME=$OUTPUT_VALUE"
-    echo "::set-output name=$OUTPUT_NAME::$OUTPUT_VALUE"
+    echo "$OUTPUT_NAME=$OUTPUT_VALUE" >> $GITHUB_OUTPUT
   done
 ```

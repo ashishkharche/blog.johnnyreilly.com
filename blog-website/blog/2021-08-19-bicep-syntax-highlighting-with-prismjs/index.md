@@ -1,14 +1,18 @@
 ---
+slug: bicep-syntax-highlighting-with-prismjs
 title: 'Bicep: syntax highlighting with PrismJS (and Docusaurus)'
 authors: johnnyreilly
-tags: [Bicep, PrismJS]
+tags: [bicep]
 image: ./bicep-syntax-highlighting-with-prismjs.webp
 hide_table_of_contents: false
+description: 'Learn how to write attractive code snippets about Bicep using PrismJS and Docusaurus. This post shows you how to add syntax highlighting for Bicep.'
 ---
 
 Bicep is an amazing language, it's also very new. If you want to write attractive code snippets about Bicep, you can by using PrismJS (and Docusaurus). This post shows you how.
 
-![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](bicep-syntax-highlighting-with-prismjs.webp)
+![title image reading "Bicep: syntax highlighting with PrismJS (and Docusaurus)" and some Azure logos](bicep-syntax-highlighting-with-prismjs.webp)
+
+<!--truncate-->
 
 ## Syntax highlighting
 
@@ -57,7 +61,7 @@ prismjs@PrismJS/prism, prismjs@^1.23.0:
 
 ## What does it look like?
 
-Finally, let's see if works. Here's a Bicep code snippet that I borrowed from [an earlier post](/2021/08/19/bicep-syntax-highlighting-with-prismjs):
+Finally, let's see if works. Here's a Bicep code snippet that I borrowed from [an earlier post](../2021-08-19-bicep-syntax-highlighting-with-prismjs/index.md):
 
 ```bicep
 param repositoryUrl string
@@ -88,8 +92,6 @@ resource staticWebApp 'Microsoft.Web/staticSites@2020-12-01' = {
     }
   }
 }
-
-output deployment_token string = listSecrets(staticWebApp.id, staticWebApp.apiVersion).properties.apiKey
 ```
 
 As you can see, it's delightfully highlighted by PrismJS. Enjoy!

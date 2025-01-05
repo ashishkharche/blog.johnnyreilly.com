@@ -1,11 +1,15 @@
 ---
+slug: reasons-to-be-cheerful-why-now-is-good
 title: 'Reasons to be Cheerful (why now is a good time to be a dev)'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
+description: 'Easy access to information via Google and the rise of JavaScript, as well as blogs, screencasts, and podcasts have made learning coding easier.'
 ---
 
 I've been a working as a developer in some way, shape or form for just over 10 years now. And it occurred to me the other day that I can't think of a better time to be a software developer than <u>right now</u>
+
+<!--truncate-->
 
 . This year was better than last year. Last year was better than the year before. This is a happily recurring theme. So why? Well I guess there are a whole host of reasons; this is my effort to identify just some of them... ## Google and the World Wide Web (other search providers are available)
 

@@ -1,20 +1,16 @@
 ---
+slug: how-to-make-azure-ad-403
 title: 'Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect'
 authors: johnnyreilly
-tags:
-  [
-    Microsoft.Identity.Web,
-    OnRedirectToAccessDenied,
-    Azure AD,
-    Azure Active Directory,
-    redirect,
-    ASP.NET,
-  ]
+tags: [asp.net, azure]
 image: ./Forbidden.webp
 hide_table_of_contents: false
+description: 'The `Microsoft.Identity.Web` library redirects to AccessDenied with a 302 (redirect) status code. Learn to return a 403 (forbidden) status code instead.'
 ---
 
 By default `Microsoft.Identity.Web` responds to unauthorized requests with a 302 (redirect). Do you want a 403 (forbidden) instead? Here's how.
+
+<!--truncate-->
 
 If you're using the tremendous [Azure Active Directory for authentication with ASP.NET](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-web-app-sign-user-app-configuration?tabs=aspnetcore) then there's a good chance you're using the [`Microsoft.Identity.Web`](https://github.com/AzureAD/microsoft-identity-web) library. It's this that allows us to drop the following statement into the `ConfigureServices` method of our `Startup` class:
 
@@ -78,4 +74,4 @@ services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.Aut
 });
 ```
 
-So above, we check the request `Accept` headers and see if they contain `"text/html"`; which we're using as a signal that the request came from a users browsing. (This may not be bulletproof; better suggestions gratefully received.) If the request does contain a ` "text/html"``Accept ` header then we redirect the client to an `/unauthorized` screen, otherwise we return `403` as we did before. Super flexible and powerful!
+So above, we check the request `Accept` headers and see if they contain `"text/html"`; which we're using as a signal that the request came from a users browsing. (This may not be bulletproof; better suggestions gratefully received.) If the request does contain a `"text/html"``Accept` header then we redirect the client to an `/unauthorized` screen, otherwise we return `403` as we did before. Super flexible and powerful!

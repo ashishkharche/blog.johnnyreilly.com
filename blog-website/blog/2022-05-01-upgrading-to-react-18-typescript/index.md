@@ -1,14 +1,18 @@
 ---
+slug: upgrading-to-react-18-typescript
 title: 'Upgrading to React 18 with TypeScript'
 authors: johnnyreilly
-tags: [React, TypeScript, Definitely Typed]
+tags: [react, definitely typed, typescript]
 image: ./title-image.png
+description: 'The upgrade of the React type definitions to support React 18 involved some significant breaking changes. This post the upgrade path.'
 hide_table_of_contents: false
 ---
 
 The upgrade of the React type definitions to support React 18 involved some significant breaking changes. This post digs into that and examines what the upgrade path looks like.
 
 ![title image reading "Upgrading to React 18 with TypeScript" with the React, TypeScript and Definitely Typed logos`](title-image.png)
+
+<!--truncate-->
 
 ## React 18 and Definitely Typed
 
@@ -156,3 +160,7 @@ This resolves the compilation issues we were having earlier; no type issues are 
 We now understand how the breaking type changes came to present with React 18, and we know how to upgrade our codebase using the handy codemod. Thanks [Sebastian Silbermann](https://twitter.com/sebsilbermann) for not only putting this work into getting the type definitions in the best state they could be, and making it easier for the community to upgrade.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/upgrading-react-18-typescript/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/upgrading-react-18-typescript/" />
+</head>

@@ -1,11 +1,15 @@
 ---
+slug: top-one-nice-one-get-sorted
 title: '(Top One, Nice One) Get Sorted'
 authors: johnnyreilly
-tags: [sort, javascript, OrderBy, LINQ]
+tags: [javascript, c#]
 hide_table_of_contents: false
+description: 'John creates a way to use .NETs LINQ feature to sort JavaScript arrays. The tools allow sorting by one or more criteria.'
 ---
 
 I was recently reading [a post by Jaime González García](http://www.barbarianmeetscoding.com/blog/2015/07/09/mastering-the-arcane-art-of-javascript-mancy-for-c-sharp-developers-chapter-7-using-linq-in-javascript/) which featured the following mind-bending proposition:
+
+<!--truncate-->
 
 > What if I told you that JavaScript has [LINQ](https://msdn.microsoft.com/en-us/library/bb397926.aspx)??
 
@@ -105,7 +109,7 @@ If we use the `numberComparer` on our original array it looks like this:
 
 ```js
 const foodInTheHouseSorted = foodInTheHouse.sort(
-  numberComparer((x) => x.daysSincePurchase)
+  numberComparer((x) => x.daysSincePurchase),
 );
 
 // foodInTheHouseSorted: [
@@ -144,7 +148,7 @@ Which is more optimal and even simpler as it just swaps the values supplied to t
 
 ```js
 const foodInTheHouseSorted = foodInTheHouse.sort(
-  reverse(stringComparer((x) => x.what))
+  reverse(stringComparer((x) => x.what)),
 );
 
 // foodInTheHouseSorted: [
@@ -178,8 +182,8 @@ This fine function takes any number of comparers that have been supplied to it. 
 const foodInTheHouseSorted = foodInTheHouse.sort(
   composeComparers(
     stringComparer((x) => x.what),
-    numberComparer((x) => x.daysSincePurchase)
-  )
+    numberComparer((x) => x.daysSincePurchase),
+  ),
 );
 
 // foodInTheHouseSorted: [
@@ -224,7 +228,50 @@ I know.
 
 I'll get my coat...
 
-<script src="https://gist.github.com/johnnyreilly/22f7c05b02c2129b89ef.js"></script>
+```js
+function composeComparers(...comparers) {
+  return comparers.reduce((prev, curr) => (a, b) => prev(a, b) || curr(a, b));
+}
+
+function stringComparer(propLambda) {
+  return (obj1, obj2) => {
+    const obj1Val = propLambda(obj1) || '';
+    const obj2Val = propLambda(obj2) || '';
+    return obj1Val.localeCompare(obj2Val);
+  };
+}
+
+function numberComparer(propLambda) {
+  return (obj1, obj2) => {
+    const obj1Val = propLambda(obj1);
+    const obj2Val = propLambda(obj2);
+    if (obj1Val > obj2Val) {
+      return 1;
+    } else if (obj1Val < obj2Val) {
+      return -1;
+    }
+    return 0;
+  };
+}
+
+function reverse(comparer) {
+  return (obj1, obj2) => comparer(obj2, obj1);
+}
+
+/* - Example usage
+const foodInTheHouse = [
+  { what: 'cake',   daysSincePurchase: 2 },
+  { what: 'apple',  daysSincePurchase: 8 },
+  { what: 'orange', daysSincePurchase: 6 },
+  { what: 'apple',  daysSincePurchase: 2 },
+];
+const foodInTheHouseSorted = foodInTheHouse.sort(composeComparers(
+    stringComparer(x => x.what),
+    reverse(numberComparer(x => x.daysSincePurchase))
+));
+console.log(foodInTheHouseSorted);
+*/
+```
 
 ## Updated 08/10/2018: Now TypeScript
 
@@ -234,7 +281,7 @@ You want to do this with TypeScript? Use this:
 type Comparer<TObject> = (obj1: TObject, obj2: TObject) => number;
 
 export function stringComparer<TObject>(
-  propLambda: (obj: TObject) => string
+  propLambda: (obj: TObject) => string,
 ): Comparer<TObject> {
   return (obj1: TObject, obj2: TObject) => {
     const obj1Val = propLambda(obj1) || '';
@@ -244,7 +291,7 @@ export function stringComparer<TObject>(
 }
 
 export function numberComparer<TObject>(
-  propLambda: (obj: TObject) => number
+  propLambda: (obj: TObject) => number,
 ): Comparer<TObject> {
   return (obj1: TObject, obj2: TObject) => {
     const obj1Val = propLambda(obj1);

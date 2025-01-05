@@ -1,14 +1,26 @@
 ---
+slug: xml-read-and-write-with-node-js
 title: 'XML: read and write with Node.js'
 authors: johnnyreilly
-tags: [XML, Node.js, fast-xml-parser, sitemap, Docusaurus]
+tags: [node.js, docusaurus]
 image: ./title-image.png
+description: 'This post demonstrates reading and writing XML in Node.js using fast-xml-parser. We will use the Docusauruses XML sitemap as an example.'
 hide_table_of_contents: false
 ---
 
 This post demonstrates reading and writing XML in Node.js using `fast-xml-parser`. We'll use the Docusauruses XML sitemap as an example.
 
 ![title image reading "XML: read and write with Node.js" with XML and Docusaurus logos](title-image.png)
+
+<!--truncate-->
+
+## Updated 03/05/2023
+
+This post talks about manipulating the Docusaurus sitemap as an example of how to work on XML with Node.js.
+
+It's worth noting that Docusaurus has offered a way to [configure the sitemap as of Docusaurus 3.3](https://docusaurus.io/blog/releases/3.3#createsitemapitems) which [I worked on](https://github.com/facebook/docusaurus/pull/10083).
+
+However, the techniques described here are still useful for working with XML in Node.js.
 
 ## Docusaurus sitemap
 
@@ -19,22 +31,22 @@ I was able to find the sitemap in the `build` folder of my Docusaurus site. It's
 ```xml
 <?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants</loc>
+    <loc>https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.johnnyreilly.com/2022/09/20/react-usesearchparamsstate</loc>
+    <loc>https://johnnyreilly.com/2022/09/20/react-usesearchparamsstate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.johnnyreilly.com/page/10</loc>
+    <loc>https://johnnyreilly.com/page/10</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.johnnyreilly.com/tags/ajax</loc>
+    <loc>https://johnnyreilly.com/tags/ajax</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -88,7 +100,7 @@ async function trimXML() {
     '..',
     'blog-website',
     'build',
-    'sitemap.xml'
+    'sitemap.xml',
   );
 
   console.log(`Loading ${sitemapPath}`);
@@ -147,17 +159,17 @@ As we can see, the `fast-xml-parser` library has parsed the XML into a JavaScrip
 
 Now that we have the XML parsed into a JavaScript object we can filter it just like we would any other JavaScript object. We have all the power of JavaScript at our fingertips!
 
-As I mentioned earlier, I want to remove all the URLs that represent duplicate content. This includes "pagination" URLs. These are URLs that are used to navigate between pages of content. For example, the URL `https://blog.johnnyreilly.com/page/10` is a pagination URL. I want to remove these URLs from the sitemap. I also want to get rid of the "tags" URLs. These are URLs that are used to navigate between posts that have a particular tag. For example, the URL `https://blog.johnnyreilly.com/tags/ajax` is a tag URL. I want to remove these URLs from the sitemap too.
+As I mentioned earlier, I want to remove all the URLs that represent duplicate content. This includes "pagination" URLs. These are URLs that are used to navigate between pages of content. For example, the URL `https://johnnyreilly.com/page/10` is a pagination URL. I want to remove these URLs from the sitemap. I also want to get rid of the "tags" URLs. These are URLs that are used to navigate between posts that have a particular tag. For example, the URL `https://johnnyreilly.com/tags/ajax` is a tag URL. I want to remove these URLs from the sitemap too.
 
 This is simplicity itself now we're in JavaScript land. We can use the `filter` method on the `url` array to remove the URLs we don't want:
 
 ```ts
-const rootUrl = 'https://blog.johnnyreilly.com';
+const rootUrl = 'https://johnnyreilly.com';
 const filteredUrls = sitemap.urlset.url.filter(
   (url) =>
     url.loc !== `${rootUrl}/tags` &&
     !url.loc.startsWith(rootUrl + '/tags/') &&
-    !url.loc.startsWith(rootUrl + '/page/')
+    !url.loc.startsWith(rootUrl + '/page/'),
 );
 ```
 
@@ -199,7 +211,7 @@ async function trimXML() {
     '..',
     'blog-website',
     'build',
-    'sitemap.xml'
+    'sitemap.xml',
   );
 
   console.log(`Loading ${sitemapPath}`);
@@ -210,16 +222,16 @@ async function trimXML() {
   });
   let sitemap: Sitemap = parser.parse(sitemapXml);
 
-  const rootUrl = 'https://blog.johnnyreilly.com';
+  const rootUrl = 'https://johnnyreilly.com';
   const filteredUrls = sitemap.urlset.url.filter(
     (url) =>
       url.loc !== `${rootUrl}/tags` &&
       !url.loc.startsWith(rootUrl + '/tags/') &&
-      !url.loc.startsWith(rootUrl + '/page/')
+      !url.loc.startsWith(rootUrl + '/page/'),
   );
 
   console.log(
-    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`
+    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`,
   );
 
   sitemap.urlset.url = filteredUrls;

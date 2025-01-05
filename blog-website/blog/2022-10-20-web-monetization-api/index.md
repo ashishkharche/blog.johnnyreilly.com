@@ -1,8 +1,10 @@
 ---
+slug: web-monetization-api
 title: 'Getting started with the Web Monetization API'
 authors: johnnyreilly
-tags: [Web Monetization]
+tags: []
 image: ./title-image.png
+description: 'The Web Monetization API is a browser API streams payment from the browser to the website. This post walks through getting started adding it to a site.'
 hide_table_of_contents: false
 ---
 
@@ -10,11 +12,13 @@ The Web Monetization API is a JavaScript browser API that allows the creation of
 
 ![title image reading "Web Monetization API - getting started" with the Web Monetization logo](title-image.png)
 
+<!--truncate-->
+
 ## The Web Monetization API
 
 Over the summer I attended the [HalfStack at the Beach](https://halfstackconf.com/newquay/) conference and heard a talk from [Alex Lakatos](https://twitter.com/avolakatos) on the Web Monetization API. I hadn't heard about this API previously; it turns out it is a new way to monetize a website. My own blog already featured a [Buy Me a Coffee](https://www.buymeacoffee.com/qUBm0Wh) link, which allows generous people to send me small amounts of money if they've found something I've written useful. The Web Monetization API appears to be that, but built into the browser and proposed as a W3C standard at the [Web Platform Incubator Community Group](https://discourse.wicg.io/t/proposal-web-monetization-a-new-revenue-model-for-the-web/3785).
 
-I was intrigued by the Web Monetization API. Alex was kind enough to share some links with me, and I decided to take it for a spin; to try out using it and to document the findings. This post is going to be exactly that. It's written from the perspective of someone who doesn't know the Web Monetization API save for what they've heard in a talk. Over the course of this post I'll try to get to know it a little better, and try to integrate it into [my blog](https://blog.johnnyreilly.com). As I do that I'll share what I'm doing and how I found things; to try to provide a useful resource (and some feedback) on what adoption feels like.
+I was intrigued by the Web Monetization API. Alex was kind enough to share some links with me, and I decided to take it for a spin; to try out using it and to document the findings. This post is going to be exactly that. It's written from the perspective of someone who doesn't know the Web Monetization API save for what they've heard in a talk. Over the course of this post I'll try to get to know it a little better, and try to integrate it into [my blog](https://johnnyreilly.com). As I do that I'll share what I'm doing and how I found things; to try to provide a useful resource (and some feedback) on what adoption feels like.
 
 I'll start with the https://webmonetization.org/ site - in there I found a [quick start](https://webmonetization.org/docs/getting-started) which I decided to work through.
 
@@ -162,3 +166,7 @@ In this post we have got to know the Web Monetization API, we've used it to mone
 Thanks so much to [Alex Lakatos](https://twitter.com/avolakatos) for telling me about this in the first place and for answering all my questions!
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/getting-started-web-monetization-api/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/getting-started-web-monetization-api/" />
+</head>

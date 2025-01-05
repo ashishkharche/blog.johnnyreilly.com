@@ -1,12 +1,16 @@
 ---
+slug: react-18-and-typescript
 title: 'React 18 and TypeScript'
 authors: johnnyreilly
-tags: [React, TypeScript, React 18]
+tags: [react, typescript]
 image: ./createNode-error.png
 hide_table_of_contents: false
+description: 'Upgrade React to `@next` and add new type definitions to use React 18 alpha with TypeScript. Use `ReactDOM.createRoot` API.'
 ---
 
 [React 18 alpha has been released](https://reactjs.org/blog/2021/06/08/the-plan-for-react-18.html); but can we use it with TypeScript? The answer is "yes", but you need to do a couple of things to make that happen. This post will show you what to do.
+
+<!--truncate-->
 
 ## Creating a React App with TypeScript
 
@@ -124,3 +128,7 @@ We'll deal with that by testing we do have an element in play before invoking `R
 Now that change is made, we have a working React 18 application, using TypeScript. Enjoy!
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/how-to-use-typescript-with-react-18-alpha/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/how-to-use-typescript-with-react-18-alpha/" />
+</head>

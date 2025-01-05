@@ -1,11 +1,15 @@
 ---
+slug: using-gulp-in-asp-net-instead-of-web-optimization
 title: 'Using Gulp to inject scripts and styles tags directly into your HTML'
 authors: johnnyreilly
-tags: [asp.net, gulp-inject, Web Optimization, gulpjs, wiredep]
+tags: [asp.net, node.js]
 hide_table_of_contents: false
+description: 'Learn how to use Gulp to directly inject scripts and styles into your HTML, which speeds up app times and makes the setup simpler.'
 ---
 
 This is very probably the dullest title for a blog post I've ever come up with. Read on though folks - it's definitely going to pick up...
+
+<!--truncate-->
 
 I [wrote last year](../2014-11-04-using-gulp-in-visual-studio-instead-of-web-optimization/index.md) about my first usage of Gulp in an ASP.Net project. I used Gulp to replace the Web Optimization functionality that is due to disappear when ASP.Net v5 ships. What I came up with was an approach that provided pretty much the same functionality; raw source in debug mode, bundling + minification in release mode.
 
@@ -30,7 +34,7 @@ gulp-inject (as the name suggests) is used to inject `script` and `link` tags in
 So, let's get the launch page (`index.html`) ready for gulp-inject:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
@@ -210,11 +214,11 @@ function getScriptsOrStyles(jsOrCss) {
   var bowerScriptsRelative = bowerScriptsAbsolute.map(
     function makePathRelativeToCwd(file) {
       return path.relative('', file);
-    }
+    },
   );
 
   var appScripts = bowerScriptsRelative.concat(
-    jsOrCss === 'js' ? config.scripts : config.styles
+    jsOrCss === 'js' ? config.scripts : config.styles,
   );
 
   return appScripts;
@@ -287,10 +291,10 @@ gulp.task('inject-debug', ['styles-debug', 'scripts-debug'], function () {
               config.debugFolder + '**/*.{js,css}',
               '!build\\debug\\bower_components\\spin.js', // Exclude weird spin js path
             ],
-            { read: false }
+            { read: false },
           )
-          .pipe(order(scriptsAndStyles))
-      )
+          .pipe(order(scriptsAndStyles)),
+      ),
     )
     .pipe(gulp.dest(config.buildDir));
 });
@@ -301,7 +305,7 @@ gulp.task('inject-release', ['styles-release', 'scripts-release'], function () {
   return gulp
     .src(config.bootFile)
     .pipe(
-      inject(gulp.src(config.releaseFolder + '**/*.{js,css}', { read: false }))
+      inject(gulp.src(config.releaseFolder + '**/*.{js,css}', { read: false })),
     )
     .pipe(gulp.dest(config.buildDir));
 });

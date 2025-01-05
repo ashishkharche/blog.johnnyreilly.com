@@ -1,11 +1,15 @@
 ---
+slug: im-looking-for-work
 title: "I'm looking for work!"
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
+description: 'Full stack developer John Reilly seeks new work after finishing recent contract. 15 years’ experience includes telecoms, advertising, tech and finance.'
 ---
 
 My name is John Reilly. I'm a full stack developer based in London, UK. I'm just coming to the end of a contract (due to finish in April 2017) and I'm starting to look for my next role.
+
+<!--truncate-->
 
 I have more than 15 years experience developing software commercially. I've worked in a number of industries including telecoms, advertising, technology (I worked at Microsoft for a time) and, of course, finance. The bulk of my experience is in the finance sector. I've provided consultancy services, building and maintaining applications for both large and small companies; from enterprise to startup.
 

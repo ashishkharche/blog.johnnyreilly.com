@@ -1,11 +1,15 @@
 ---
+slug: azure-static-web-apps-a-netlify-alternative
 title: 'Azure Static Web Apps - a Netlify alternative'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, GitHub Actions, Docusaurus]
+tags: [azure static web apps, github actions, docusaurus]
+description: 'Azure Static Web Apps are a new offering from Microsoft. This post looks at what they are and how they compare to Netlify.'
 hide_table_of_contents: false
 ---
 
 Jamstack sites have taken the world by storm. There's currently fierce competition between offerings like [Netlify and Cloudflare](https://blog.logrocket.com/netlify-vs-cloudflare-pages/). A new player in this space is Azure Static Web Apps. This post will look at what working with SWAs is like and will demonstrate deploying one using GitHub Actions.
+
+<!--truncate-->
 
 ## Jamstack and Azure Static Web Apps
 
@@ -40,7 +44,7 @@ And Docusaurus will create a new site in the `website` directory. Let's commit a
 
 ## Creating a Static Web App in Azure
 
-There's a number of ways to create a Static Web App in Azure. It's possible to use [infrastructure as code with a language like Bicep](https://blog.johnnyreilly.com/2021/08/15/bicep-azure-static-web-apps-azure-devops#bicep-template). But for this post let's use the [Azure Portal](https://portal.azure.com) instead. If you don't have an account already, you can set one up for free very quickly.
+There's a number of ways to create a Static Web App in Azure. It's possible to use [infrastructure as code with a language like Bicep](https://johnnyreilly.com/2021/08/15/bicep-azure-static-web-apps-azure-devops#bicep-template). But for this post let's use the [Azure Portal](https://portal.azure.com) instead. If you don't have an account already, you can set one up for free very quickly.
 
 Once you've logged in, click "Create a resource" and look up Static Web App:
 
@@ -227,3 +231,7 @@ This staging environment will last only until the pull request is closed. At tha
 In this post we've deployed a website to a Static Web App using GitHub Actions and implemented authentication. We've also demonstrated Azure's equivalent of Netlify's deploy previews; staging environments.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/azure-static-web-apps-netlify-alternative/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/azure-static-web-apps-netlify-alternative/" />
+</head>

@@ -1,9 +1,11 @@
 ---
+slug: blog-archive-for-docusaurus
 title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
-tags: [Docusaurus, blog archive, webpack]
+tags: [docusaurus, webpack]
 image: ./docusaurus-blog-archive.png
 hide_table_of_contents: false
+description: 'Learn how to add a blog archive to your Docusaurus blog and browse through historic posts. Follow the articles steps to implement.'
 ---
 
 Docusaurus doesn't ship with "blog archive" functionality. By which I mean, something that allows you to look at an overview of your historic blog posts. It turns out it is fairly straightforward to implement your own. This post does just that.
@@ -16,9 +18,11 @@ As of [v2.0.0-beta.6](https://github.com/facebook/docusaurus/releases/tag/v2.0.0
 
 If you'd like to know how to build your own, read on... But you may not need to!
 
+<!--truncate-->
+
 ## Blogger's blog archive
 
-I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](../2021-03-15-from-blogger-to-docusaurus/index.md). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
+I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](../2021-03-15-definitive-guide-to-migrating-from-blogger-to-docusaurus/index.md). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
 
 ![Blogger blog archive](blogger-blog-archive-small.webp)
 
@@ -81,7 +85,7 @@ const allPosts = ((ctx) => {
         },
       ];
     },
-    /** @type {string[]}>} */ []
+    /** @type {string[]}>} */ [],
   );
 })(require.context('../../blog', true, /index.md/));
 ```
@@ -116,7 +120,7 @@ Now we're ready to blast it onto the screen. We'll create two components:
 
 ```tsx
 function Year(
-  /** @type {{ year: string; posts: BlogPost[]; }} */ { year, posts }
+  /** @type {{ year: string; posts: BlogPost[]; }} */ { year, posts },
 ) {
   return (
     <div className={clsx('col col--4', styles.feature)}>
@@ -169,7 +173,7 @@ We're finished! We have a delightful looking blog archive plumbed into our blog:
 
 It is possible that a blog archive may become natively available in Docusaurus in future. If you're interested in this, you can track [this issue](https://github.com/facebook/docusaurus/issues/4431).
 
-Here's the final code - which you can see [powering this screen](https://blog.johnnyreilly.com/blog-archive). And you can see the code that backs it [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/blog-website/src/pages/blog-archive.js):
+Here's the final code - which you can see [powering this screen](https://johnnyreilly.com/blog-archive). And you can see the code that backs it [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/blog-website/src/pages/blog-archive.js):
 
 ```tsx
 import React from 'react';
@@ -205,7 +209,7 @@ const allPosts = ((ctx) => {
         },
       ];
     },
-    /** @type {BlogPost[]}>} */ []
+    /** @type {BlogPost[]}>} */ [],
   );
   // @ts-ignore
 })(require.context('../../blog', true, /index.md/));
@@ -222,7 +226,7 @@ const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
 }));
 
 function Year(
-  /** @type {{ year: string; posts: BlogPost[]; }} */ { year, posts }
+  /** @type {{ year: string; posts: BlogPost[]; }} */ { year, posts },
 ) {
   return (
     <div className={clsx('col col--4', styles.feature)}>

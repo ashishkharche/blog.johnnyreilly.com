@@ -1,11 +1,15 @@
 ---
+slug: the-names-have-been-changed
 title: 'The Names Have Been Changed...'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
+description: 'John changes the domain name of his blog from .io to .com to save money and has set up a redirect from old site to new one.'
 ---
 
 ...to protect my wallet.
+
+<!--truncate-->
 
 Subsequent to this blog getting [a proper domain name a year ago](../2014-12-05-whats-in-a-name/index.md) it's now got a new one. That's right, `blog.icanmakethiswork.io` is dead! Long live `blog.johnnyreilly.com`!
 

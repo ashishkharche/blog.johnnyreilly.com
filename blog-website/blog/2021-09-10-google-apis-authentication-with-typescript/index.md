@@ -1,12 +1,16 @@
 ---
+slug: google-apis-authentication-with-typescript
 title: 'Google APIs: authentication with TypeScript'
 authors: johnnyreilly
-tags: [Google APIs, TypeScript]
+tags: [typescript]
 image: ./app-registration.png
 hide_table_of_contents: false
+description: 'This guide shows how to use TypeScript to authenticate and access Google APIs with OAuth 2.0, specifically the Google Calendar API.'
 ---
 
 Google has a wealth of APIs which we can interact with. At the time of writing, there's more than two hundred available; including YouTube, Google Calendar and GMail (alongside many others). To integrate with these APIs, it's necessary to authenticate and then use that credential with the API. This post will take you through how to do just that using TypeScript. It will also demonstrate how to use one of those APIs: the Google Calendar API.
+
+<!--truncate-->
 
 ## Creating an OAuth 2.0 Client ID on the Google Cloud Platform
 
@@ -155,7 +159,7 @@ export function makeOAuth2Client({
   return new google.auth.OAuth2(
     /* YOUR_CLIENT_ID */ clientId,
     /* YOUR_CLIENT_SECRET */ clientSecret,
-    /* YOUR_REDIRECT_URL */ 'urn:ietf:wg:oauth:2.0:oob'
+    /* YOUR_REDIRECT_URL */ 'urn:ietf:wg:oauth:2.0:oob',
   );
 }
 ```
@@ -263,3 +267,7 @@ The approach outlined by this post is the key to integrating with a multitude of
 The idea of this was sparked by [Martin Fowler's post](https://martinfowler.com/articles/command-line-google.html) on the topic which comes from a Ruby angle.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/how-to-authenticate-access-google-apis-using-oauth-2-0/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/how-to-authenticate-access-google-apis-using-oauth-2-0/" />
+</head>

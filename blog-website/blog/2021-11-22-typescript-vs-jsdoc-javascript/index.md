@@ -1,20 +1,34 @@
 ---
+slug: typescript-vs-jsdoc-javascript
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
-tags: [JavaScript, TypeScript, JSDoc]
+tags: [javascript, typescript, jsdoc]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'JSDoc annotations in JavaScript codebase add a new dynamic to the debate between JavaScript and TypeScript. It allows for type checking of JavaScript code.'
 ---
 
 There's a debate to be had about whether using JavaScript or TypeScript leads to better outcomes when building a project. The introduction of using JSDoc annotations to type a JavaScript codebase introduces a new dynamic to this discussion. This post will investigate what that looks like, and come to an (opinionated) conclusion.
 
 ![title image reading "JSDoc JavaScript vs TypeScript" with a JavaScript logo and TypeScript logo](title-image.png)
 
-## Updated 6th December 2021
+If you'd like to learn more about setting up a codebase to be type checked with JSDoc and TypeScript, then [read this guide](../2024-09-02-typescript-eslint-with-jsdoc-js/index.md).
+
+<!--truncate-->
+
+## Updated 29th March 2023
 
 This blog evolved to become a talk:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5MZoAcheyE4?start=240" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+Slightly surreally, there's an [audiobook version of this post](https://www.youtube.com/watch?v=pj8SoTZbCTE) thanks to ThePrimeagen. Essentially he reads the blog post and says he didn't like it. But it made me laugh 😉:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pj8SoTZbCTE" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+
+If you're looking for a good reference on using JSDoc with TypeScript then [read this guide](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html).
+
+## Background
 
 If you'd talked to me in 2018, I would have solidly recommended using TypeScript, and steering away from JavaScript. The rationale is simple: I'm exceedingly convinced of the value that static typing provides in terms of productivity / avoiding bugs in production. I appreciate this can be a contentious issue, but that is my settled opinion on the subject. Other opinions are available.
 
@@ -74,7 +88,7 @@ function stringsStringStrings(
   p1: string,
   p2?: string,
   p3?: string,
-  p4 = 'test'
+  p4 = 'test',
 ): string {
   // ...
 }
@@ -108,3 +122,7 @@ So in a way, I don't feel super strongly whether people use JavaScript or TypeSc
 I really like JSDoc myself, and will often use it on small projects. It's a fantastic addition to TypeScript's capabilities. For bigger projects, I'll likely go with TypeScript from the get go. But really, this is a choice - and either is great.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/typescript-vs-jsdoc-javascript/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/typescript-vs-jsdoc-javascript/" />
+</head>

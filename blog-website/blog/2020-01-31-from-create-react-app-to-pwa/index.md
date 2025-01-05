@@ -1,11 +1,15 @@
 ---
+slug: from-create-react-app-to-pwa
 title: 'From create-react-app to PWA'
 authors: johnnyreilly
-tags: [create-react-app, PWA]
+tags: [react]
 hide_table_of_contents: false
+description: 'Learn how to build a basic Progressive Web App with React and TypeScript, as well as how to add features like code splitting and deployment.'
 ---
 
 Progressive Web Apps are a (terribly named) wonderful idea. You can build an app _once_ using web technologies which serves all devices and form factors. It can be accessible over the web, but also surface on the home screen of your Android / iOS device. That app can work offline, have a splash screen when it launches and have notifications too.
+
+<!--truncate-->
 
 PWAs can be a money saver for your business. The alternative, should you want an app experience for your users, is building the same application using three different technologies (one for web, one for Android and one for iOS). When you take this path it's hard to avoid a multiplication of cost and complexity. It often leads to dividing up the team as each works on a different stack. It's common to lose a certain amount of focus as a consequence. PWAs can help here; they are a compelling alternative, not just from a developers standpoint, but from a resourcing one too.
 
@@ -302,28 +306,32 @@ The source code of our PWA lives on GitHub here: https://github.com/johnnyreilly
 
 We're going to log into Netlify, click on the "Create a new site" option and select GitHub as the provider. We'll need to authorize Netlify to access our GitHub.
 
-![](netlify-auth.webp)
+![screenshot of the Netlify auth flow](netlify-auth.webp)
 
 You may need to click the "Configure Netlify on GitHub" button to grant permissions for Netlify to access your repo like so:
 
-![](netlify-repo-permissions.webp)
+![screenshot of Netlify permissions flow](netlify-repo-permissions.webp)
 
 Then you can select your repo from within Netlify. All of the default settings that Netlify provides should work for our use case:
 
-![](netlify-deploy-settings.png)
+![screenshot of Netlify deploy settings](netlify-deploy-settings.png)
 
 Let's hit the magic "Deploy site" button! In a matter of minutes you'll find that Netlify has deployed your PWA.
 
-![](netlify-deployed.webp)
+![screenshot of Netlify deployed site](netlify-deployed.webp)
 
 If we browse to the URL provided by Netlify we'll be able to see the deployed PWA in action. (You also have the opportunity to set up a custom domain name that you would typically want outside of a simple demo such as this.) Importantly this will be served over HTTPS which will allow our Service Worker to operate.
 
 Now that we know it's there, let's see how what we've built holds up according to the professionals. We're going to run the Google Chrome Developer Tools Audit against our PWA:
 
-![](pwa-audit.png)
+![screenshot of the PWA audit looking good](pwa-audit.png)
 
 That is a good start for our PWA!
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/from-create-react-app-to-pwa/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/from-create-react-app-to-pwa/" />
+</head>
 
 [The source code for this project can be found here.](https://github.com/johnnyreilly/pwa-react-typescript)

@@ -2,3 +2,8 @@ node_modules
 img.sh
 devto.sh
 APIClientGenerator
+.env
+__azurite*
+__blobstorage*
+__queuestorage*
+temp

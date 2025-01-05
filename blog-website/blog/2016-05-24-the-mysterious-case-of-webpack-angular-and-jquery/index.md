@@ -1,11 +1,15 @@
 ---
-title: 'The Mysterious Case of Webpack, Angular and jQuery'
+slug: the-mysterious-case-of-webpack-angular-and-jquery
+title: 'The Mysterious Case of webpack, AngularJS and jQuery'
 authors: johnnyreilly
-tags: [provideplugin, jquery, jqlite, Angular, Webpack]
+tags: [angularjs, webpack, jquery]
 hide_table_of_contents: false
+description: 'Angular can use jQuery instead of jQLite, but this becomes complicated when using webpack. We need to use the ProvidePlugin function in webpack.config.js.'
 ---
 
 You may know that [Angular ships with a cutdown version of jQuery called jQLite](https://docs.angularjs.org/api/ng/function/angular.element). It's still possible to use the full-fat jQuery; to quote the docs:
+
+<!--truncate-->
 
 > To use `jQuery`, simply ensure it is loaded before the `angular.js` file.
 

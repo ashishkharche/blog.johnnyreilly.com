@@ -1,19 +1,15 @@
 ---
+slug: globalizejs-number-and-date
 title: 'Globalize.js - number and date localisation made easy'
 authors: johnnyreilly
-tags:
-  [
-    jqueryui,
-    Globalize.JS,
-    javascript,
-    ASP.NET AJAX,
-    Globalization,
-    Richard D. Worth,
-  ]
+tags: [javascript, globalize]
 hide_table_of_contents: false
+description: 'Globalize.js is a JavaScript library allowing developers to format and parse numbers and dates in a culture specific fashion for better user experience.'
 ---
 
 I wanted to write about a JavaScript library which seems to have had very little attention so far. And that surprises me as it's
+
+<!--truncate-->
 
 1. Brilliant!
 2. Solves a common problem that faces many app developers who work in the wonderful world of web; myself included

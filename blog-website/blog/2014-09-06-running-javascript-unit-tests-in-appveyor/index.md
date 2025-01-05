@@ -1,12 +1,15 @@
 ---
+slug: running-javascript-unit-tests-in-appveyor
 title: 'Running JavaScript Unit Tests in AppVeyor'
 authors: johnnyreilly
-tags:
-  [Jasmine, javascript, Unit tests, Continuous Integration, AppVeyor, Chutzpah]
+tags: [javascript, automated testing]
 hide_table_of_contents: false
+description: 'AppVeyor and Chutzpah were integrated to run C# and JavaScript unit tests in a single PowerShell script for CI purposes.'
 ---
 
 ## With a little help from Chutzpah...
+
+<!--truncate-->
 
 [AppVeyor](http://www.appveyor.com) (if you're not aware of it) is a Continuous Integration provider. If you like, it's plug-and-play CI for .NET developers. It's lovely. And what's more it's ["free for open-source projects with public repositories hosted on GitHub and BitBucket"](http://www.appveyor.com/pricing). Boom! I recently hooked up 2 of my GitHub projects with AppVeyor. It took me all of... 10 minutes. If that? It really is \***that**\* good.
 

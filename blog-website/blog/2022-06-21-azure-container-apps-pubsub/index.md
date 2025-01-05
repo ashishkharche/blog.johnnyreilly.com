@@ -1,24 +1,18 @@
 ---
+slug: azure-container-apps-pubsub
 title: 'Azure Container Apps: dapr pubsub'
 authors: johnnyreilly
-tags:
-  [
-    Azure Container Apps,
-    dapr,
-    publish & subscribe,
-    Bicep,
-    GitHub Actions,
-    GitHub container registry,
-    devcontainer,
-    debug,
-  ]
+tags: [azure container apps, bicep]
 image: ./title-image.png
+description: 'This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions which communicate using daprs pubsub building block.'
 hide_table_of_contents: false
 ---
 
 This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions. These apps will communicate using [dapr](https://docs.dapr.io/)'s [publish & subscribe (pubsub) building block](https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/).
 
 ![title image reading "Azure Container Apps: dapr pubsub"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
+
+<!--truncate-->
 
 This post will build upon code written in a [previous post](../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry. Behind the scenes, that app was made up of a .NET app and a Node.js app communicating via dapr's [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/).
 
@@ -251,7 +245,7 @@ router.post('/', koaBody(), async (ctx, next) => {
         },
         {
           headers: weatherServiceAppIdHeaders,
-        }
+        },
       );
 
       ctx.body = formHtml('Message sent');
@@ -482,7 +476,7 @@ deploy:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Deploy bicep
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       if: github.event_name != 'pull_request'
       with:
         inlineScript: |
@@ -583,7 +577,7 @@ router.post('/', koaBody(), async (ctx, next) => {
         /* topic */ 'weather-forecasts',
         /* data */ {
           email: ctx.request.body.email,
-        }
+        },
       );
 
       ctx.body = formHtml(`Message sent: ${sent}`);
