@@ -1,11 +1,15 @@
 ---
+slug: hottowel-angular-meet-typescript
 title: 'HotTowel-Angular meet TypeScript'
 authors: johnnyreilly
-tags: [HotTowel, TypeScript, AngularJS, JohnPapa]
+tags: [angularjs, typescript]
 hide_table_of_contents: false
+description: 'Johnny Reilly creates a bare-bones port of the Hot Towel Angular SPA Template to TypeScript in order to demonstrate the ease of transition.'
 ---
 
 I've recently ported John Papa's popular [Hot Towel Angular SPA Template](https://github.com/johnpapa/HotTowel-Angular) to TypeScript. Why? [Because it was there.](http://en.wikipedia.org/wiki/George_Mallory)
+
+<!--truncate-->
 
 If you'd like to read more about HotTowel-Angular then have a read of [John Papa's post](http://www.johnpapa.net/hot-towel-angular/). You can find my port on GitHub [here](https://github.com/johnnyreilly/HotTowel-Angular-TypeScript).
 

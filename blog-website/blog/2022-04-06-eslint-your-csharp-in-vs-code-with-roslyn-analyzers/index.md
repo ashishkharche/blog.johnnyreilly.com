@@ -1,14 +1,18 @@
 ---
+slug: eslint-your-csharp-in-vs-code-with-roslyn-analyzers
 title: 'ESLint your C# in VS Code with Roslyn Analyzers'
 authors: johnnyreilly
-tags: [Roslyn Analyzers, C#, VS Code, Lint, ESLint]
+tags: [c#, vs code, javascript, asp.net]
 image: ./title-image.png
+description: 'ESLint provides linting for TypeScript and JavaScript in VS Code. A similar experience is available for C# in VS Code through Roslyn Analyzers.'
 hide_table_of_contents: false
 ---
 
 ESLint provides a great linting experience for TypeScript and JavaScript in VS Code. The suggestions, fixes and ignore options make creating clean code a joy. A similar experience is available for C# in VS Code through Roslyn Analyzers - this post tells us more.
 
 ![title image reading "ESLint your C# in VS Code with Roslyn Analyzers" with the C# and VS Code logos`](title-image.png)
+
+<!--truncate-->
 
 ## Linting and C#
 

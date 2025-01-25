@@ -1,18 +1,15 @@
 ---
+slug: migrating-jasmine-tests-to-typescript
 title: 'Journalling the Migration of Jasmine Tests to TypeScript'
 authors: johnnyreilly
-tags:
-  [
-    Jasmine,
-    TypeScript Language Service,
-    TypeScript,
-    javascript,
-    implicit references,
-  ]
+tags: [automated testing, typescript, javascript]
 hide_table_of_contents: false
+description: 'John describes issues migrating Jasmine tests from JS to TypeScript, including tooling, typings, and missing dependencies.'
 ---
 
 I previously attempted to migrate my Jasmine tests from JavaScript to TypeScript. The last time I tried it didn't go so well and I bailed. Thank the Lord for source control. But feeling I shouldn't be deterred I decided to have another crack at it.
+
+<!--truncate-->
 
 I did manage it this time... Sort of. Unfortunately there was a problem which I discovered right at the end. An issue with the TypeScript / Visual Studio tooling. So, just to be clear, this is not a blog post of "do this and it will work perfectly". On this occasion there will be some rough edges. This post exists, as much as anything else, as a record of the problems I experienced - I hope it will prove useful. Here we go:
 
@@ -41,7 +38,7 @@ describe('Proverb.Web -> app-> controllers ->', function () {
       _$q_,
       _$location_,
       _common_,
-      _datacontext_
+      _datacontext_,
     ) {
       $rootScope = _$rootScope_;
       $q = _$q_;
@@ -54,11 +51,11 @@ describe('Proverb.Web -> app-> controllers ->', function () {
       getById_deferred = $q.defer();
 
       spyOn(datacontext.sage, 'getById').and.returnValue(
-        getById_deferred.promise
+        getById_deferred.promise,
       );
       spyOn(common, 'activateController').and.callThrough();
       spyOn(common.logger, 'getLogFn').and.returnValue(
-        jasmine.createSpy('log')
+        jasmine.createSpy('log'),
       );
       spyOn($location, 'path').and.returnValue(jasmine.createSpy('path'));
 
@@ -102,10 +99,10 @@ describe('Proverb.Web -> app-> controllers ->', function () {
         $rootScope.$digest(); // So Angular processes the resolved promise
 
         expect(sageDetailController.log).toHaveBeenCalledWith(
-          'Activated Sage Details View'
+          'Activated Sage Details View',
         );
         expect(sageDetailController.title).toBe(
-          'Sage Details: ' + sage_stub.name
+          'Sage Details: ' + sage_stub.name,
         );
       });
     });
@@ -123,7 +120,7 @@ describe('Proverb.Web -> app-> controllers ->', function () {
         sageDetailController.gotoEdit();
 
         expect($location.path).toHaveBeenCalledWith(
-          '/sages/edit/' + sage_stub.id
+          '/sages/edit/' + sage_stub.id,
         );
       });
     });
@@ -227,7 +224,7 @@ describe('Proverb.Web -> app-> controllers ->', function () {
       _$q_: ng.IQService,
       _$location_: ng.ILocationService,
       _common_: common,
-      _datacontext_: datacontext
+      _datacontext_: datacontext,
     ) {
       $rootScope = _$rootScope_;
       var $q = _$q_;
@@ -240,11 +237,11 @@ describe('Proverb.Web -> app-> controllers ->', function () {
       getById_deferred = $q.defer();
 
       spyOn(datacontext.sage, 'getById').and.returnValue(
-        getById_deferred.promise
+        getById_deferred.promise,
       );
       spyOn(common, 'activateController').and.callThrough();
       spyOn(common.logger, 'getLogFn').and.returnValue(
-        jasmine.createSpy('log')
+        jasmine.createSpy('log'),
       );
       spyOn($location, 'path').and.returnValue(jasmine.createSpy('path'));
 
@@ -294,10 +291,10 @@ describe('Proverb.Web -> app-> controllers ->', function () {
         $rootScope.$digest(); // So Angular processes the resolved promise
 
         expect(sageDetailController.log).toHaveBeenCalledWith(
-          'Activated Sage Details View'
+          'Activated Sage Details View',
         );
         expect(sageDetailController.title).toBe(
-          'Sage Details: ' + sage_stub.name
+          'Sage Details: ' + sage_stub.name,
         );
       });
     });
@@ -321,7 +318,7 @@ describe('Proverb.Web -> app-> controllers ->', function () {
         sageDetailController.gotoEdit();
 
         expect($location.path).toHaveBeenCalledWith(
-          '/sages/edit/' + sage_stub.id
+          '/sages/edit/' + sage_stub.id,
         );
       });
     });

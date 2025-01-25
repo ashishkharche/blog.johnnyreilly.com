@@ -1,11 +1,15 @@
 ---
+slug: fork-ts-checker-webpack-plugin-code
 title: 'fork-ts-checker-webpack-plugin code clickability'
 authors: johnnyreilly
-tags: [VS Code, console, fork-ts-checker-webpack-plugin, ts-loader, Webpack]
+tags: [vs code, fork-ts-checker-webpack-plugin, ts-loader, webpack]
 hide_table_of_contents: false
+description: 'The `fork-ts-checker-webpack-plugin` can speed up builds, but TypeScript errors in the terminal are not clickable. The cause and solution are explained.'
 ---
 
 My name is John Reilly and I'm a VS Code addict. There I said it. I'm also a big fan of TypeScript and webpack. I've recently switched to using the awesome [`fork-ts-checker-webpack-plugin`](https://www.npmjs.com/package/fork-ts-checker-webpack-plugin) to speed up my builds.
+
+<!--truncate-->
 
 One thing I love is using VS Code both as my editor and my terminal. Using the fork-ts-checker-webpack-plugin I noticed a problem when TypeScript errors showed up in the terminal:
 
@@ -38,7 +42,7 @@ function clickableFormatter(message, useColors) {
           message.getLine() +
           ',' +
           message.getCharacter() +
-          ')'
+          ')',
       ) +
       messageColor(':'),
 

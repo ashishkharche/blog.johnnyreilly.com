@@ -1,14 +1,18 @@
 ---
+slug: typescript-unit-tests-with-debug-support
 title: 'TypeScript Unit Tests with Debug Support'
 authors: johnnyreilly
-tags: [TypeScript, Unit Tests, Debug]
+tags: [typescript, automated testing]
 image: ./title-image.png
+description: 'Unit tests are an important part of the development process. This post will outline how to write unit tests using TypeScript and how to debug them as well.'
 hide_table_of_contents: false
 ---
 
 <head>
     <link rel="canonical" href="https://meticulous.ai/blog/typescript-unit-tests-with-debugging/" />
 </head>
+
+<!--truncate-->
 
 Unit tests are an important part of the development process. They are used to verify that the code is working as intended. This post will outline how to write unit tests using TypeScript and how to debug them as well.
 
@@ -109,7 +113,7 @@ import { makeGreeting } from './greeter';
 
 test('given a name produces the expected greeting', () => {
   expect(makeGreeting('George')).toBe(
-    'Well hello there George, I see your name is 6 characters long!'
+    'Well hello there George, I see your name is 6 characters long!',
   );
 });
 ```

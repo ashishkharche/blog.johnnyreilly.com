@@ -1,13 +1,17 @@
 ---
+slug: atom-recovering-from-corrupted-packages
 title: 'Atom - Recovering from Corrupted Packages'
 authors: johnnyreilly
-tags: [apm, Atom, packages, corrupt]
+tags: []
 hide_table_of_contents: false
+description: 'Atom packages corrupt? Locate `.apm` folder at `[Your name]/.atom`, then delete. On reopening Atom, packages will be restored.'
 ---
 
 Every now and then when I try and update my packages in [Atom](https://atom.io/) I find this glaring back at me:
 
 ![](Screenshot-2016-03-17-06.17.03.webp)
+
+<!--truncate-->
 
 Ug. The problem is that my atom packages have become corrupt. Quite how I couldn't say. But that's the problem. Atom, as I know from bitter experience, will not recover from this. It just sits there feeling sorry for itself. However, getting back to where you belong is simpler than you imagine:
 

@@ -1,13 +1,17 @@
 ---
+slug: typescript-using-functions-with-union-types
 title: 'TypeScript: In Praise of Union Types'
 authors: johnnyreilly
-tags: [TypeScript, Option bags, Union Types, Function syntax]
+tags: [typescript]
 hide_table_of_contents: false
+description: 'TypeScript 1.4s Union Types offer a way to specify a value that is of one of many different types and results in a much terser definition file.'
 ---
 
 ## (& How to Express Functions in UTs)
 
 Have you heard the good news my friend? I refer, of course, to the shipping of TypeScript 1.4 and my _favourite_ language feature since generics.... Union Types.
+
+<!--truncate-->
 
 In the [1\.4 announcement](https://blogs.msdn.com/b/typescript/archive/2015/01/16/announcing-typescript-1-4.aspx) Jonathan Turner described Union Types thusly:
 

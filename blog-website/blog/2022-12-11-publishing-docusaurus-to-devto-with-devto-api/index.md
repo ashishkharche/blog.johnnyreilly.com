@@ -1,14 +1,18 @@
 ---
+slug: publishing-docusaurus-to-devto-with-devto-api
 title: 'Publishing Docusaurus to dev.to with the dev.to API'
 authors: johnnyreilly
-tags: [dev.to, API, Docusaurus, GitHub Actions]
+tags: [docusaurus, github actions]
 image: ./title-image.png
+description: 'The dev.to API provides a way to cross post your Docusaurus blogs to dev.to. This post describes how to do that with TypeScript, Node.js and the dev.to API.'
 hide_table_of_contents: false
 ---
 
-If you'd like to cross post your Docusaurus blogs to dev.to, you're in the right place. This post describes how to do that using TypeScript and the dev.to API.
+The dev.to API provides a way to cross post your Docusaurus blogs to dev.to. This post describes how to do that with TypeScript, Node.js and the dev.to API.
 
 ![title image reading "Deep linking with Azure Static Web Apps and Easy Auth" with Azure AD and Static Web App logos](title-image.png)
+
+<!--truncate-->
 
 ## Why not use "Publishing to DEV Community 👩‍💻👨‍💻 from RSS"?
 
@@ -223,12 +227,13 @@ import {
   devtoApiClientFactory,
 } from './devtoApiClient';
 
-const rootUrl = 'https://blog.johnnyreilly.com';
+const rootUrl = 'https://johnnyreilly.com';
 const rootGitHubUrl =
   'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/blog-website/blog/';
 const docusaurusBlogDirectory = '../blog-website/blog';
 
 const markdownImageRexEx = /!\[.*\]\((.*)\)/g;
+const markdownRelativeBlogUrlRegex = /\[.*\]\(\.\.\/(.*)\/index.md\)/g;
 
 async function getLastXBlogPostsToPublish({
   numberOfPosts,
@@ -260,17 +265,21 @@ async function publishBlogPostToDevTo({
   const blogFilePath = path.join(
     docusaurusBlogDirectory,
     blogFilePathRelative,
-    'index.md'
+    'index.md',
   );
   console.log(`Processing ${blogFilePath}`);
 
   const blogFileContent = await fs.promises.readFile(blogFilePath, 'utf8');
   const { frontMatter, content } = parseFrontMatter(blogFileContent);
 
-  const canonicalUrl = makeCanonicalUrl(blogFilePathRelative, frontMatter);
+  const canonicalUrl = makeCanonicalUrl(
+    blogFilePathRelative,
+    frontMatter['slug'] as string | undefined,
+  );
+  const contentWithCanonicalUrls = enrichMarkdownWithCanonicalUrls(content);
   const contentWithGitHubImages = enrichMarkdownWithImagesFromGitHub(
-    content,
-    blogFilePathRelative
+    contentWithCanonicalUrls,
+    blogFilePathRelative,
   );
   const tags = frontMatter['tags'] as string[];
   const title = frontMatter['title'] as string;
@@ -309,7 +318,7 @@ ${contentWithGitHubImages}`;
 
 function makeMainImage(
   frontMatter: { [key: string]: unknown },
-  blogFilePathRelative: string
+  blogFilePathRelative: string,
 ) {
   const image =
     typeof frontMatter['image'] === 'string'
@@ -326,29 +335,29 @@ function makeMainImage(
 
 function makeCanonicalUrl(
   blogFilePathRelative: string,
-  frontMatter: { [key: string]: unknown }
+  frontMatterSlug?: string,
 ) {
   const parsedBlogFileName = `${rootUrl}/${blogFilePathRelative
     .substring(0, 10)
     .split('-')
     .join('/')}/${blogFilePathRelative.substring(11)}`;
 
-  const canonicalUrl = frontMatter['slug']
-    ? `${rootUrl}/${frontMatter['slug']}`
+  const canonicalUrl = frontMatterSlug
+    ? `${rootUrl}/${frontMatterSlug}`
     : parsedBlogFileName;
   return canonicalUrl;
 }
 
 function enrichMarkdownWithImagesFromGitHub(
   content: string,
-  blogFilePathRelative: string
+  blogFilePathRelative: string,
 ) {
   return Array.from(content.matchAll(markdownImageRexEx))
     .map((matches) => {
       const [completeMatch, url] = matches;
       const withGitHubUrl = completeMatch.replace(
         url,
-        rootGitHubUrl + blogFilePathRelative + '/' + url
+        rootGitHubUrl + blogFilePathRelative + '/' + url,
       );
       console.log(`Replacing ${completeMatch} with ${withGitHubUrl}`);
       return { oldImage: completeMatch, newImage: withGitHubUrl };
@@ -356,7 +365,31 @@ function enrichMarkdownWithImagesFromGitHub(
     .reduce(
       (contentInProgress, { oldImage, newImage }) =>
         contentInProgress.replace(oldImage, newImage),
-      content
+      content,
+    );
+}
+
+function enrichMarkdownWithCanonicalUrls(content: string) {
+  return Array.from(content.matchAll(markdownRelativeBlogUrlRegex))
+    .map((matches) => {
+      const [
+        /* eg [I wanted to add the last modified date to my blog posts.](../2022-11-25-adding-lastmod-to-sitemap-git-commit-date/index.md) */
+        completeMatch,
+        /* eg 2022-11-25-adding-lastmod-to-sitemap-git-commit-date */
+        relativeBlogPath,
+      ] = matches;
+
+      const withCanonicalUrl = completeMatch.replace(
+        `../${relativeBlogPath}/index.md`,
+        makeCanonicalUrl(relativeBlogPath),
+      );
+      console.log(`Replacing ${completeMatch} with ${withCanonicalUrl}`);
+      return { oldImage: completeMatch, newImage: withCanonicalUrl };
+    })
+    .reduce(
+      (contentInProgress, { oldImage, newImage }) =>
+        contentInProgress.replace(oldImage, newImage),
+      content,
     );
 }
 
@@ -378,7 +411,7 @@ async function run() {
   const devtoApiClient = makeDevtoApiClient();
   const articles = await devtoApiClient.getArticles();
   const articlesByCanonicalUrl = new Map<string, Article>(
-    Array.from(articles).map((article) => [article.canonical_url, article])
+    Array.from(articles).map((article) => [article.canonical_url, article]),
   );
   const blogPostsToPublish = await getLastXBlogPostsToPublish({
     numberOfPosts: 5,

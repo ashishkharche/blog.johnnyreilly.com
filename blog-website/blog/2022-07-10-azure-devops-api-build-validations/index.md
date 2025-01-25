@@ -1,14 +1,18 @@
 ---
+slug: azure-devops-api-build-validations
 title: 'Get Build Validations with the Azure DevOps API'
 authors: johnnyreilly
-tags: [Azure Pipelines, Azure DevOps API]
+tags: [azure pipelines, azure devops]
 image: ./title-image.png
+description: Use the Azure DevOps API to acquire the build validations a project uses. This post shows you how using curl and the Node.js API.
 hide_table_of_contents: false
 ---
 
 Build validations are a great way to protect your branches in Azure DevOps. It's possible to use the Azure DevOps API to acquire the build validations a project uses. This post shows you how using curl and the Node.js API.
 
 ![title image reading "Get Build Validations with the Azure DevOps API" with Azure Pipelines and Azure DevOps logo](title-image.png)
+
+<!--truncate-->
 
 ## Build validations
 
@@ -106,11 +110,11 @@ interface BuildValidation {
 }
 
 async function getProjectBuildValidations(
-  projectId: string
+  projectId: string,
 ): Promise<BuildValidation[]> {
   const authHandler = nodeApi.getPersonalAccessTokenHandler(
     pat,
-    /** allowCrossOriginAuthentication */ true
+    /** allowCrossOriginAuthentication */ true,
   );
 
   const webApi = new nodeApi.WebApi(orgUrl, authHandler);
@@ -121,7 +125,7 @@ async function getProjectBuildValidations(
   const buildValidations = configurations
     .filter(
       // we only want the build validations
-      (configuration) => configuration.type?.displayName === 'Build'
+      (configuration) => configuration.type?.displayName === 'Build',
     )
     .map((configuration) => ({
       // map down to a custom type

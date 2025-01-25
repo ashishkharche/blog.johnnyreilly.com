@@ -1,11 +1,15 @@
 ---
+slug: how-to-attribute-encode-partialview-in
 title: 'How to attribute encode a PartialView in MVC (Razor)'
 authors: johnnyreilly
-tags: [asp.net mvc, encode, PartialView, razor, attribute]
+tags: [asp.net]
 hide_table_of_contents: false
+description: 'Find out how to attribute encode PartialView HTML in Razor/ASP.Net MVC with the HTML helper method `PartialAttributeEncoded`.'
 ---
 
 This post is plagiarism. But I'm plagiarising myself so I don't feel too bad.
+
+<!--truncate-->
 
 I posted a [question](http://stackoverflow.com/q/12093005/761388) on StackOverflow recently asking if there was a simple way to attribute encode a PartialView in Razor / ASP.NET MVC. I ended up answering my own question and since I thought it was a useful solution it might be worth sharing.
 
@@ -56,7 +60,50 @@ Well the answer wasn't too complicated. After a little pondering I ended up scra
 
 Here's the code:
 
-<script src="https://gist.github.com/3449462.js?file=PartialExtensions.cs"></script>
+```cs
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
+
+namespace My.Helpers
+{
+    /// <summary>
+    /// MVC HtmlHelper extension methods - html element extensions
+    /// </summary>
+    public static class PartialExtensions
+    {
+        /// <summary>
+        /// Allows a partial to be rendered within quotation marks.
+        /// I use this with jQuery tooltips where we store the tooltip HMTL within a partial.
+        /// See example usage below:
+        /// <div class="tooltip" title="@Html.PartialAttributeEncoded("_MyTooltipInAPartial")">Some content</div>
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="partialViewName"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static MvcHtmlString PartialAttributeEncoded(
+          this HtmlHelper helper,
+          string partialViewName,
+          object model = null
+        )
+        {
+            //Create partial using the relevant overload (only implemented ones I used)
+            var partialString = (model == null)
+                ? helper.Partial(partialViewName)
+                : helper.Partial(partialViewName, model);
+
+            //Attribute encode the partial string - note that we have to .ToString() this to get back from an MvcHtmlString
+            var partialStringAttributeEncoded = HttpUtility.HtmlAttributeEncode(partialString.ToString());
+
+            //Turn this back into an MvcHtmlString
+            var partialMvcStringAttributeEncoded = MvcHtmlString.Create(partialStringAttributeEncoded);
+
+            return partialMvcStringAttributeEncoded;
+        }
+    }
+}
+```
 
 Using the above helper is simplicity itself:
 

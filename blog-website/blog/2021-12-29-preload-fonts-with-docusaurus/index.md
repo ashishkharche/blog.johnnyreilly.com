@@ -1,12 +1,16 @@
 ---
+slug: preload-fonts-with-docusaurus
 title: 'Preload fonts with Docusaurus (updated 03/11/2022)'
 authors: johnnyreilly
-tags: [Docusaurus, preload, webpack, fonts, plugin, configureWebpack, headTags]
+tags: [docusaurus, webpack]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Improve website performance by preloading web fonts in Docusaurus using `webpack-font-preload-plugin` or `headTags` API, as described in this tutorial.'
 ---
 
 When we're using custom fonts in our websites, it's good practice to preload the fonts to minimise the [flash of unstyled text](https://css-tricks.com/fout-foit-foft/). This post shows how to achieve this with Docusaurus.
+
+<!--truncate-->
 
 It does so by building a Docusaurus plugin which makes use of [Satyendra Singh](https://github.com/sn-satyendra)'s excellent [`webpack-font-preload-plugin`](https://github.com/sn-satyendra/webpack-font-preload-plugin).
 
@@ -128,7 +132,7 @@ In our `custom.css` we need to add the following:
 ```css
 @font-face {
   font-family: 'Poppins';
-  src: url('https://blog.johnnyreilly.com/fonts/Poppins-Regular.ttf');
+  src: url('https://johnnyreilly.com/fonts/Poppins-Regular.ttf');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -136,7 +140,7 @@ In our `custom.css` we need to add the following:
 
 @font-face {
   font-family: 'Poppins';
-  src: url('https://blog.johnnyreilly.com/fonts/Poppins-Bold.ttf');
+  src: url('https://johnnyreilly.com/fonts/Poppins-Bold.ttf');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -163,7 +167,7 @@ Note that the urls are fully qualified to prevent webpack from trying to bundle 
     }
   ],
   "globalHeaders": {
-    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com 'unsafe-inline'; img-src 'self' data: https: https://blog.johnnyreilly.com https://thankful-sky-0bfc7e803-320.westeurope.1.azurestaticapps.net https://www.google-analytics.com https://www.googletagmanager.com",
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com 'unsafe-inline'; img-src 'self' data: https: https://johnnyreilly.com https://thankful-sky-0bfc7e803-320.westeurope.1.azurestaticapps.net https://www.google-analytics.com https://www.googletagmanager.com",
     "X-Clacks-Overhead": "GNU Terry Pratchett",
     "Access-Control-Allow-Origin": "*"
   }

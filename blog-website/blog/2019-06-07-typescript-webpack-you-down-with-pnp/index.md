@@ -1,11 +1,15 @@
 ---
+slug: typescript-webpack-you-down-with-pnp
 title: 'TypeScript / webpack - you down with PnP? Yarn, you know me!'
 authors: johnnyreilly
-tags: [TypeScript, yarn, Webpack, PnP]
+tags: [webpack, typescript, node.js]
 hide_table_of_contents: false
+description: 'Yarn PnP speeds up module installation and eliminates node_modules. Converting to it is easy but some rough edges exist.'
 ---
 
 Yarn PnP is an innovation by the Yarn team designed to speed up module resolution by node. To quote the [(excellent) docs](https://yarnpkg.com/en/docs/pnp):
+
+<!--truncate-->
 
 > Plug’n’Play is an alternative installation strategy unveiled in September 2018...
 >

@@ -1,11 +1,15 @@
 ---
+slug: my-subconscious-is-better-developer
 title: 'My Subconscious is a Better Developer Than I Am'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
+description: 'In which I wonder if my subconscious is a better developer than I am, as solutions seem to come to mind, bypassing the work I consciously put in.'
 ---
 
 Occasionally I flatter myself that I'm alright at this development lark. Such egotistical talk is foolish. What makes me pause even more when I consider the proposition is this: my subconscious is a better developer than I am.
+
+<!--truncate-->
 
 What's this fellow talking about?
 

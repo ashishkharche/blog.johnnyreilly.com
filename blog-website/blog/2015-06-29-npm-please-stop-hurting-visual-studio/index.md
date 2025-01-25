@@ -1,11 +1,15 @@
 ---
+slug: npm-please-stop-hurting-visual-studio
 title: 'npm please stop hurting Visual Studio'
 authors: johnnyreilly
-tags: [rimraf, npm, long paths, Windows]
+tags: [node.js]
 hide_table_of_contents: false
+description: 'Windows handling of long paths can be problematic when using Visual Studio with npm; using rimraf for deletions can help until npm 3.0 comes out.'
 ---
 
 I don't know about you but I personally feel that the following sentence may well be the saddest in the English language:
+
+<!--truncate-->
 
 `2&gt;ASPNETCOMPILER : error ASPRUNTIME: The specified path, file name, or both are too long. The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.`
 

@@ -1,14 +1,18 @@
 ---
+slug: bicep-azure-static-web-apps-azure-devops
 title: 'Publish Azure Static Web Apps with Bicep and Azure DevOps'
 authors: johnnyreilly
-tags: [Azure Static Web App, Bicep, Azure DevOps, Azure Pipelines]
+tags: [azure static web apps, bicep, azure pipelines, azure devops]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Learn how to deploy Azure Static Web Apps using Bicep and Azure DevOps, including workarounds for common deployment issues.'
 ---
 
 This post demonstrates how to deploy [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview) using Bicep and Azure DevOps. It includes a few workarounds for the ["Provider is invalid. Cannot change the Provider. Please detach your static site first if you wish to use to another deployment provider." issue](https://github.com/Azure/static-web-apps/issues/516).
 
 ![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](title-image.png)
+
+<!--truncate-->
 
 ## Bicep template
 
@@ -48,14 +52,9 @@ resource staticWebApp 'Microsoft.Web/staticSites@2020-12-01' = {
     }
   }
 }
-
-output deployment_token string = listSecrets(staticWebApp.id, staticWebApp.apiVersion).properties.apiKey
 ```
 
-There's some things to draw attention to in the code above:
-
-1. The `provider`, `repositoryUrl` and `branch` fields are required for successive deployments to succeed. In our case we're deploying via Azure DevOps and so our provider is `'DevOps'`. For more details, [look at this issue](https://github.com/Azure/static-web-apps/issues/516).
-2. We're creating a `deployment_token` which we'll need in order that we can deploy into the Azure Static Web App resource.
+There's some things to draw attention to in the code above. The `provider`, `repositoryUrl` and `branch` fields are required for successive deployments to succeed. In our case we're deploying via Azure DevOps and so our provider is `'DevOps'`. For more details, [look at this issue](https://github.com/Azure/static-web-apps/issues/516).
 
 ## Static Web App
 
@@ -104,24 +103,35 @@ steps:
       deploymentMode: Incremental
       deploymentOutputs: deploymentOutputs
 
-  - task: PowerShell@2
-    name: 'SetDeploymentOutputVariables'
-    displayName: 'Set Deployment Output Variables'
+  # Only necessary when consuming deploymentOutputs
+  # - task: PowerShell@2
+  #   name: 'SetDeploymentOutputVariables'
+  #   displayName: 'Set Deployment Output Variables'
+  #   inputs:
+  #     targetType: inline
+  #     script: |
+  #       $armOutputObj = '$(deploymentOutputs)' | ConvertFrom-Json
+  #       $armOutputObj.PSObject.Properties | ForEach-Object {
+  #         $keyname = $_.Name
+  #         $value = $_.Value.value
+
+  #         # Creates a standard pipeline variable
+  #         Write-Output "##vso[task.setvariable variable=$keyName;issecret=true]$value"
+
+  #         # Display keys in pipeline
+  #         Write-Output "output variable: $keyName"
+  #       }
+  #     pwsh: true
+
+  - task: AzureCLI@2
+    displayName: 'Acquire API key for deployment'
     inputs:
-      targetType: inline
-      script: |
-        $armOutputObj = '$(deploymentOutputs)' | ConvertFrom-Json
-        $armOutputObj.PSObject.Properties | ForEach-Object {
-          $keyname = $_.Name
-          $value = $_.Value.value
-
-          # Creates a standard pipeline variable
-          Write-Output "##vso[task.setvariable variable=$keyName;issecret=true]$value"
-
-          # Display keys in pipeline
-          Write-Output "output variable: $keyName"
-        }
-      pwsh: true
+      azureSubscription: $(serviceConnection)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        APIKEY=$(az staticwebapp secrets list --name $(staticWebAppName) | jq -r '.properties.apiKey')
+        echo "##vso[task.setvariable variable=apiKey;issecret=true]$APIKEY"
 
   - task: AzureStaticWebApp@0
     name: DeployStaticWebApp
@@ -130,7 +140,7 @@ steps:
       app_location: 'static-web-app'
       # api_location: 'api' # we don't have an API
       output_location: 'build'
-      azure_static_web_apps_api_token: $(deployment_token) # captured from deploymentOutputs
+      azure_static_web_apps_api_token: $(apiKey)
 ```
 
 When the pipeline is run, it does the following:

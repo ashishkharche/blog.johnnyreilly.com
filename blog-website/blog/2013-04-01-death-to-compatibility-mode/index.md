@@ -1,11 +1,15 @@
 ---
+slug: death-to-compatibility-mode
 title: 'Death to compatibility mode'
 authors: johnnyreilly
-tags: [css, intranet, meta, internet explorer, compatibility mode, header]
+tags: []
 hide_table_of_contents: false
+description: 'John discusses compatibility mode in Internet Explorer and suggests using custom HTTP headers or meta tags to prevent rendering and CSS issues.'
 ---
 
 For just over 10 years my bread and butter has been the development and maintenance of line of business apps. More particularly, web apps built on the Microsoft stack of love ([© Scott Hanselman](https://channel9.msdn.com/Events/MIX/MIX11/FRM02)). These sort of apps are typically accessed via the company intranet and since "bring your own device" is still a relatively new innovation these apps are invariably built for everyones favourite browser: Internet Explorer. As we all know, enterprises are generally not that speedy when it comes to upgrades. So we're basically talking IE 9 at best, but more often than not, IE 8.
+
+<!--truncate-->
 
 Now, unlike many people, I don't regard IE as a work of evil. I spent a fair number of years working for an organization which had IE 6 as the only installed browser on company desktops. (In fact, this was still the case as late as 2012!) Now, because JavaScript is so marvellously flexible I was still able to do a great deal with the help of a number of [shivs / shims](http://paulirish.com/2011/the-history-of-the-html5-shiv/).
 
@@ -33,7 +37,24 @@ For my own sanity I thought it might be good to document the various ways that e
 
 If you're running IIS7 or greater then, for my money, this is the simplest and most pain free solution. All you need do is include the following snippet in your web config file:
 
-<script src="https://gist.github.com/johnnyreilly/5283462.js?file=web.config"></script>
+```xml
+<?xml version="1.0"?>
+<configuration>
+
+  <!-- ... -->
+
+  <system.webServer>
+    <httpProtocol>
+      <customHeaders>
+        <add name="X-UA-Compatible" value="IE=edge" />
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+
+  <!-- ... -->
+
+<configuration>
+```
 
 This will make IIS serve up the above custom response HTTP header with each page.
 
@@ -41,11 +62,11 @@ This will make IIS serve up the above custom response HTTP header with each page
 
 Maybe you're running II6 and so you making a change to the web.config won't make a difference. That's fine, you can still get the same behaviour by going to the HTTP headers tab in IIS (see below) and adding the `X-UA-Compatible: IE=edge` header by hand.
 
-![](https://4.bp.blogspot.com/-78CYavaCiUk/UVlGNv87U_I/AAAAAAAAAZQ/qtchMc14JsY/s320/CustomHeadersIIS6.gif)
-
 Or, if you don't have access to IIS (don't laugh - it happens) you can fall back to doing this in code like this:
 
-<script src="https://gist.github.com/johnnyreilly/5283462.js?file=servingUpTheHardWay.cs"></script>
+```cs
+Response.AppendHeader("X-UA-Compatible", "IE=edge");
+```
 
 Obviously there's a whole raft of ways you could get this in, using `Application_BeginRequest` in `Global.asax.cs` would probably as good an approach as any.
 
@@ -53,7 +74,16 @@ Obviously there's a whole raft of ways you could get this in, using `Application
 
 The final approach uses meta tags. And, in my experience it is the most quirky approach - it doesn't always seem to work. First up, what do we do? Well, in each page served we include the following meta tag like this:
 
-<script src="https://gist.github.com/johnnyreilly/5283462.js?file=any.html"></script>
+```html
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- See how the meta tag is the first inside the head?  That's *important* -->
+  </head>
+  <body></body>
+</html>
+```
 
 Having crawled over the WWW equivalent of broken glass I now know why this \***sometimes**\* doesn't work. (And credit where it's due the answer came from [here](http://stackoverflow.com/a/3960197/761388).) It's all down to the positioning of the meta tag:
 

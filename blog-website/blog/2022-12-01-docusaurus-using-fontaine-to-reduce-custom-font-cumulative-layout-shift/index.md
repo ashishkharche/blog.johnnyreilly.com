@@ -1,14 +1,18 @@
 ---
+slug: docusaurus-using-fontaine-to-reduce-custom-font-cumulative-layout-shift
 title: 'Docusaurus: Using fontaine to reduce custom font cumulative layout shift'
 authors: johnnyreilly
-tags: [Docusaurus, fontaine, fonts, CLS, cumulative layout shift]
+tags: [docusaurus]
 image: ./title-image.png
+description: 'Custom font usage can introduce cumulative layout shift (or "jank") to your website. This post shows how to use fontaine to reduce this with Docusaurus sites.'
 hide_table_of_contents: false
 ---
 
 Custom font usage can introduce cumulative layout shift (or "jank") to your website. This post shows how to use [fontaine](https://github.com/unjs/fontaine) to reduce this with Docusaurus sites.
 
 ![title image reading "Docusaurus: Using fontaine to reduce custom font cumulative layout shift" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
+
+<!--truncate-->
 
 ## What is cumulative layout shift?
 
@@ -75,7 +79,7 @@ const config = {
         configureWebpack(_config, _isServer) {
           return {
             plugins: [
-              fontaine.fontaineTransform.webpack({
+              fontaine.FontaineTransform.webpack({
                 fallbacks: [
                   'system-ui',
                   '-apple-system',
@@ -134,3 +138,7 @@ I'm very grateful to Daniel for his help in getting it working with my blog. He 
 In testament to what a great idea fontaine is built upon, in the time I've been writing this post [`@next/font`](https://nextjs.org/blog/next-13#nextfont) has been announced, which is based upon a similar idea.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/docusaurus-using-fontaine-reduce-cumulative-layout-shift/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/docusaurus-using-fontaine-reduce-cumulative-layout-shift/" />
+</head>

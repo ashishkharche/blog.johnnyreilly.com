@@ -1,11 +1,15 @@
 ---
+slug: typescript-and-eslint-meet-fork-ts-checker-webpack-plugin
 title: 'Using TypeScript and ESLint with webpack (fork-ts-checker-webpack-plugin new feature!)'
 authors: johnnyreilly
-tags: [ESLint, TypeScript, fork-ts-checker-webpack-plugin, Webpack]
+tags: [fork-ts-checker-webpack-plugin, webpack, javascript, typescript, eslint]
 hide_table_of_contents: false
+description: 'The `fork-ts-checker-webpack-plugin` adds support for ESLint. Replace TSLint with related packages in `package.json` and configure with `.eslintrc.js`.'
 ---
 
 The `fork-ts-checker-webpack-plugin` has, since its inception, performed two classes of checking:
+
+<!--truncate-->
 
 1. Compilation errors which the TypeScript compiler surfaces up
 2. Linting issues which TSLint reports

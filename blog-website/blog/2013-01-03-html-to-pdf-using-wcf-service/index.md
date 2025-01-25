@@ -1,11 +1,15 @@
 ---
+slug: html-to-pdf-using-wcf-service
 title: 'HTML to PDF using a WCF Service'
 authors: johnnyreilly
-tags: [wkhtmltopdf, html, WCF, pdf]
+tags: []
 hide_table_of_contents: false
+description: 'This ASP.NET WCF service creates PDFs from HTML and is remotely fired with wkhtmltopdf, using `webHttpBinding` for simple service calls.'
 ---
 
 ## TL; DR - "Talk is cheap. Show me the code."
+
+<!--truncate-->
 
 Some time ago I wrote a [post which demonstrated how you could make PDFs from HTML](../2012-04-05-making-pdfs-from-html-in-c-using/index.md) using C# and [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/). To my lasting surprise this has been the most popular post I've written. I recently put together an ASP.NET WCF service which exposed this functionality which I thought might be worth sharing. The code can be found on GitHub [here](https://github.com/johnnyreilly/PdfMakerWcfService).
 
@@ -34,11 +38,7 @@ It's worth noting that `automaticFormatSelectionEnabled` set to true on the beha
 
 ## Test Harness
 
-As a final touch I added in a test harness in the form of `Demo.aspx`. If you browse to it you'll see a screen a little like this:
-
-![](https://2.bp.blogspot.com/-zoyt7ufl9FQ/UOVmD0VPh0I/AAAAAAAAAYE/DnmZmbx-Mxc/s400/PdfMakerDemo.png)
-
-It's fairly self-explanatory as you can see. And here's an example of the output generated when pointing at Hacker News:
+As a final touch I added in a test harness in the form of `Demo.aspx`. Here's an example of the output generated when pointing at Hacker News:
 
 <iframe src="https://docs.google.com/file/d/0B87K8-qxOZGFMGNCUWRneUFsVFU/preview" width="500" height="500"></iframe>
 

@@ -1,11 +1,15 @@
 ---
+slug: devcontainers-and-ssl-interception
 title: 'Devcontainers and SSL interception'
 authors: johnnyreilly
-tags: [devcontainer, mitm certificate, ssl interception]
+tags: []
 hide_table_of_contents: false
+description: 'Developers may need to overcome MITM certificate issues to use devcontainers, which can optimize productivity for new starters when developing software.'
 ---
 
 [Devcontainers](https://code.visualstudio.com/docs/remote/containers) are cool. They are the infrastructure as code equivalent for developing software.
+
+<!--truncate-->
 
 Imagine your new starter joins the team, you'd like them to be contributing code on _day 1_. But if the first thing that happens is you hand them a sheaf of paper upon which are the instructions for how to get their machines set up for development, well, maybe it's going to be a while. But if your project has a devcontainer then you're off to the races. One trusty `git clone`, fire up VS Code and they can get going.
 

@@ -1,11 +1,15 @@
 ---
+slug: rolling-your-own-confirm-mechanism
 title: 'Rolling your own confirm mechanism using Promises and jQuery UI'
 authors: johnnyreilly
-tags: [Q, jQuery UI, promises, confirm]
+tags: [jquery]
 hide_table_of_contents: false
+description: 'Learn how to create a custom confirm dialog using jQuery UI’s dialog and promises. The custom dialog is more configurable than the default `window.confirm`.'
 ---
 
 We're here to talk about the [confirm](https://developer.mozilla.org/en-US/docs/Web/API/Window.confirm) dialog. Or, more specifically, how we can make our own confirm dialog.
+
+<!--truncate-->
 
 JavaScript in the browser has had the `window.confirm` method for the longest time. This method takes a string as an argument and displays it in the form of a dialog, giving the user the option to click on either an "OK" or a "Cancel" button. If the user clicks "OK" the method returns `true`, if the user clicks "Cancel" the method returns `false`.
 

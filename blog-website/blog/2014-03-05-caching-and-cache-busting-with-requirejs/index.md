@@ -1,11 +1,15 @@
 ---
+slug: caching-and-cache-busting-with-requirejs
 title: 'Caching and cache-busting with RequireJS'
 authors: johnnyreilly
-tags: [asp.net, RequireJS, cache, caching]
+tags: [asp.net]
 hide_table_of_contents: false
+description: 'Learn how to use "urlArgs" in RequireJS to manage caching and offer a reusable solution for both development and production environments.'
 ---
 
 Having put together a demo of using TypeScript with RequireJS my attention turned quickly to caching. Or rather, IE forced me to think about caching.
+
+<!--truncate-->
 
 Everyone has their own workflow, their own tools. The things they like to use as they put things together. And for me I’m a Visual Studio man – it’s not everyone’s bag but I really like it. I find the JavaScript tooling is now really solid combined with IE and it (generally) makes me more productive. I want to use it. But, as you know, nothing is perfect...
 

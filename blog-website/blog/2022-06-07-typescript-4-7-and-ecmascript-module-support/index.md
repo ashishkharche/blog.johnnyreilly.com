@@ -1,14 +1,18 @@
 ---
+slug: typescript-4-7-and-ecmascript-module-support
 title: 'TypeScript 4.7 and ECMAScript Module Support'
 authors: johnnyreilly
-tags: [TypeScript, ECMAScript Modules]
+tags: [typescript, javascript]
 image: ./title-image.png
+description: 'As part of the TypeScript 4.7 release comes a major upgrade to ECMAScript Module Support for Node.js. This post takes a look at what that means.'
 hide_table_of_contents: false
 ---
 
 As part of the TypeScript 4.7 release comes a major upgrade to ECMAScript Module Support for Node.js. This post takes a look at what that means.
 
 ![title image reading "Upgrading to React 18 with TypeScript" with the React, TypeScript and Definitely Typed logos`](title-image.png)
+
+<!--truncate-->
 
 ## A short history of ECMAScript modules
 
@@ -238,3 +242,7 @@ We've seen what TypeScript support for ECMAScript modules looks like, and how to
 If you'd like to read up further on the topic, the [TypeScript 4.7 beta release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-7-beta/#esm-nodejs) are an excellent resource.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/typescript-4-7-ecmascript-module-support/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/typescript-4-7-ecmascript-module-support/" />
+</head>

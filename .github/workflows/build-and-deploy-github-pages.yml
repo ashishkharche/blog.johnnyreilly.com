@@ -11,64 +11,39 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
+  id-token: write # Require write permission to Fetch an OIDC token.
   contents: write
   pull-requests: write
 
 jobs:
-  docusaurus_build_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    runs-on: ubuntu-latest
-    name: Docusaurus build 🦕
-    steps:
-      - name: Checkout 📥
-        uses: actions/checkout@v3
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          # Default: 1
-          fetch-depth: 0
-
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'yarn'
-
-      - name: Docusaurus build 🦕
-        run: |
-          cd blog-website
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          npm run build
-
   deploy_to_github_pages_job:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     name: Publish to GitHub Pages 🗞️
     steps:
       - name: Checkout 📥
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # Default: 1
           fetch-depth: 0
 
       - name: Setup Node.js 🔧
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: '20'
+          cache: 'npm'
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Setup bun 🔧
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install and Build 🔧
         run: |
           cd blog-website
-          yarn install --frozen-lockfile
-          yarn run build
+          npm ci
+          DOCUSAURUS_SSR_CONCURRENCY=5 npm run build
 
       - name: Publish to GitHub Pages 🗞️
         uses: JamesIves/github-pages-deploy-action@v4

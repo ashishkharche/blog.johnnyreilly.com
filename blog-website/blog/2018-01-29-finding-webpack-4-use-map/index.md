@@ -1,11 +1,15 @@
 ---
+slug: finding-webpack-4-use-map
 title: 'Finding webpack 4 (use a Map)'
 authors: johnnyreilly
-tags: [webpack 4]
+tags: [webpack]
 hide_table_of_contents: false
+description: 'webpack 4s new plugin architecture requires migrating from "kebab-case" to "camelCase". A migration guide for plugins and loaders is available.'
 ---
 
 ## Update: 03/02/2018
+
+<!--truncate-->
 
 Tobias Koppers has written a migration guide for plugins / loaders as well - take a read [here](https://medium.com/webpack/webpack-4-migration-guide-for-plugins-loaders-20a79b927202). It's very useful.
 
@@ -34,7 +38,7 @@ this.compiler.hooks.watchClose.tap(
   'name-to-identify-your-plugin-goes-here',
   () => {
     // do your thing here
-  }
+  },
 );
 ```
 
@@ -57,7 +61,7 @@ this.compiler.hooks.watchRun.tapAsync(
   (compiler, callback) => {
     // do your thing here
     callback();
-  }
+  },
 );
 ```
 
@@ -138,7 +142,7 @@ With webpack 4 these become:
 
 ```js
 loader._compiler.hooks.afterCompile.tapAsync(
-  'ts-loader' /* callback goes here */
+  'ts-loader' /* callback goes here */,
 );
 loader._compiler.hooks.watchRun.tapAsync('ts-loader' /* callback goes here */);
 ```
@@ -159,7 +163,7 @@ What this means is, code that would once have looked like this:
 Object.keys(watching.compiler.fileTimestamps)
   .filter(
     (filePath) =>
-      watching.compiler.fileTimestamps[filePath] > lastTimes[filePath]
+      watching.compiler.fileTimestamps[filePath] > lastTimes[filePath],
   )
   .forEach((filePath) => {
     lastTimes[filePath] = times[filePath];

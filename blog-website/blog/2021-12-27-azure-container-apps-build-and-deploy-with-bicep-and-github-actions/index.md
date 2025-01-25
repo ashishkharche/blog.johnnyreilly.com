@@ -1,9 +1,11 @@
 ---
+slug: azure-container-apps-build-and-deploy-with-bicep-and-github-actions
 title: 'Azure Container Apps: build and deploy with Bicep and GitHub Actions'
 authors: johnnyreilly
-tags: [Azure Container Apps, Bicep, GitHub Actions, GitHub container registry]
+tags: [bicep, github actions, azure container apps]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Learn how to deploy a web app to Azure Container Apps using Bicep and GitHub Actions. This post covers the configuration and deployment of secrets.'
 ---
 
 This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. This includes the configuration and deployment of secrets.
@@ -13,6 +15,8 @@ This post follows on from the [previous post](../2021-12-19-azure-container-apps
 If you'd like to learn more about using dapr with Azure Container Apps then you might want to read [this post](../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md).
 
 ![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
+
+<!--truncate-->
 
 ## Updated 02/05/2022
 
@@ -457,7 +461,11 @@ jobs:
 
       - name: Output image tag
         id: image-tag
-        run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
+        run: |
+          name=$(echo "image-${{ matrix.services.imageName }}" | tr '[:upper:]' '[:lower:]')
+          value=$(echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]')
+          echo "setting output: $name=$value"
+          echo "$name=$value" >> $GITHUB_OUTPUT
 
   deploy:
     runs-on: ubuntu-latest
@@ -472,7 +480,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy bicep
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         if: github.event_name != 'pull_request'
         with:
           inlineScript: |
@@ -494,7 +502,7 @@ jobs:
                   APPSETTINGS_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_RECIPIENT_EMAIL }}"
 
       - name: What-if bicep
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         if: github.event_name == 'pull_request'
         with:
           inlineScript: |
@@ -550,7 +558,7 @@ In the case of a pull request, it runs the [`az deployment group what-if`](https
 
 ```yaml
 - name: What-if bicep
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   if: github.event_name == 'pull_request'
   with:
     inlineScript: |
@@ -576,7 +584,7 @@ When it's not a pull request, it runs the [`az deployment group create`](https:/
 
 ```yaml
 - name: Deploy bicep
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   if: github.event_name != 'pull_request'
   with:
     inlineScript: |

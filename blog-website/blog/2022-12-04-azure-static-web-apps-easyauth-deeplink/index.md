@@ -1,14 +1,68 @@
 ---
+slug: azure-static-web-apps-easyauth-deeplink
 title: 'Deep linking with Azure Static Web Apps and Easy Auth'
 authors: johnnyreilly
-tags: [Authorization, Easy Auth, deep link, Static Web Apps, Azure AD]
+tags: [azure static web apps, auth, azure]
 image: ./title-image.png
+description: 'Azure Static Web Apps does not support deep linking with authentication. This post describes how to work around this limitation.'
 hide_table_of_contents: false
 ---
 
 Azure Static Web Apps doesn't support deep linking with authentication. The [post login redirect](https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-authorization?tabs=invitations#post-login-redirect) parameter of `post_login_redirect_uri` does not support query string parameters. This post describes how to work around this limitation.
 
 ![title image reading "Deep linking with Azure Static Web Apps and Easy Auth" with Azure AD and Static Web App logos](title-image.png)
+
+<!--truncate-->
+
+## Updated 1st March 2023
+
+I'm happy to say that this blog post is no longer necessary; [the behavour is now built into Azure Static Web Apps](https://github.com/Azure/static-web-apps/issues/435#issuecomment-1353985870). Here is an example `staticwebapp.config.json` which supports deep linking using the [`.referrer`](https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-authorization?tabs=invitations#set-up-post-sign-in-redirect) post sign-in redirect:
+
+```json
+{
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        // ...
+      }
+    }
+  },
+  "navigationFallback": {
+    "rewrite": "index.html"
+  },
+  "routes": [
+    {
+      "route": "/login",
+      "rewrite": "/.auth/login/aad",
+      "allowedRoles": ["anonymous", "authenticated"]
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout",
+      "allowedRoles": ["anonymous", "authenticated"]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["authenticated"]
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/aad?post_login_redirect_uri=.referrer",
+      "statusCode": 302
+    }
+  }
+  // ...
+}
+```
 
 ## Deep linking
 
@@ -124,7 +178,7 @@ export async function deeplink(loginUrl: string) {
   } else if (!deeplinkPathAndQuery) {
     if (pathAndQuery !== '/' && pathAndQuery !== loginUrl) {
       console.log(
-        `deeplink: Storing redirect URL of ${pathAndQuery} and redirecting to ${loginUrl}`
+        `deeplink: Storing redirect URL of ${pathAndQuery} and redirecting to ${loginUrl}`,
       );
       localStorage.setItem(deeplinkPathAndQueryKey, pathAndQuery);
       location.href = loginUrl;
@@ -187,7 +241,7 @@ function main() {
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </StrictMode>
+      </StrictMode>,
     );
   }
 }

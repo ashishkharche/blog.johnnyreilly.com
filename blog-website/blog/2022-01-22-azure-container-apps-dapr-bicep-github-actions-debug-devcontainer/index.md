@@ -1,16 +1,10 @@
 ---
+slug: azure-container-apps-dapr-bicep-github-actions-debug-devcontainer
 title: 'Azure Container Apps: dapr, devcontainer, debug and deploy'
 authors: johnnyreilly
-tags:
-  [
-    Azure Container Apps,
-    Bicep,
-    GitHub Actions,
-    GitHub container registry,
-    devcontainer,
-    debug,
-  ]
+tags: [bicep, github actions, azure container apps]
 image: ./title-image.png
+description: 'Build and deploy two Azure Container Apps using Bicep and GitHub Actions, communicate using dapr, build, run and debug in VS Code using a devcontainer.'
 hide_table_of_contents: false
 ---
 
@@ -19,6 +13,8 @@ This post shows how to build and deploy two Azure Container Apps using Bicep and
 This follows on from the [previous post](../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry.
 
 ![title image reading "Azure Container Apps dapr, devcontainer, debug and deploy"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
+
+<!--truncate-->
 
 ## Updated 02/05/2022
 
@@ -266,7 +262,7 @@ app.use(async (ctx) => {
       `${daprSidecarBaseUrl}/weatherForecast`,
       {
         headers: weatherServiceAppIdHeaders,
-      }
+      },
     );
 
     ctx.body = `And the weather today will be ${data.data[0].summary}`;
@@ -912,7 +908,11 @@ jobs:
 
       - name: Output image tag
         id: image-tag
-        run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
+        run: |
+          name=$(echo "image-${{ matrix.services.imageName }}" | tr '[:upper:]' '[:lower:]')
+          value=$(echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]')
+          echo "setting output: $name=$value"
+          echo "$name=$value" >> $GITHUB_OUTPUT
 
   deploy:
     runs-on: ubuntu-latest
@@ -927,7 +927,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy bicep
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         if: github.event_name != 'pull_request'
         with:
           inlineScript: |
@@ -991,7 +991,7 @@ The `deploy` job runs the [`az deployment group create`](https://docs.microsoft.
 
 ```yaml
 - name: Deploy bicep
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   if: github.event_name != 'pull_request'
   with:
     inlineScript: |

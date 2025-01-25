@@ -1,12 +1,16 @@
 ---
+slug: azure-app-service-web-app-containers-asp-net-nested-configuration
 title: 'Azure App Service: nested configuration for ASP.NET running in Web App for Containers using Application Settings'
 authors: johnnyreilly
 tags: []
 image: ./appservice_classic.webp
 hide_table_of_contents: false
+description: 'Learn how to configure an ASP.NET application in Azure App Service Web App for Containers without colons. Use a double underscore instead.'
 ---
 
 How can we configure an ASP.NET application with nested properties [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/) using Application Settings in Azure? Colons don't work.
+
+<!--truncate-->
 
 ## Containers on App Service
 

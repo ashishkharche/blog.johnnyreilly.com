@@ -1,11 +1,15 @@
 ---
+slug: offline-storage-in-pwa
 title: 'Offline storage in a PWA'
 authors: johnnyreilly
-tags: [PWA, idb-keyval, IndexedDB, localStorage]
+tags: []
 hide_table_of_contents: false
+description: 'Learn how to use IndexedDB for offline storage in your web app or PWA with the IDB-Keyval library and a React custom hook.'
 ---
 
 When you are building any kind of application it's typical to want to store information which persists beyond a single user session. Sometimes that will be information that you'll want to live in some kind of centralised database, but not always.
+
+<!--truncate-->
 
 Also, you may want that data to still be available if your user is offline. Even if they can't connect to the network, the user may still be able to use the app to do meaningful tasks; but the app will likely require a certain amount of data to drive that.
 
@@ -79,7 +83,7 @@ async function testIDBKeyval() {
   await set('hello', 'world');
   const whatDoWeHave = await get('hello');
   console.log(
-    `When we queried idb-keyval for 'hello', we found: ${whatDoWeHave}`
+    `When we queried idb-keyval for 'hello', we found: ${whatDoWeHave}`,
   );
 }
 
@@ -176,7 +180,7 @@ function App() {
   useEffect(() => {
     get<boolean>('darkModeOn').then((value) =>
       // If a value is retrieved then use it; otherwise default to true
-      setDarkModeOn(value ?? true)
+      setDarkModeOn(value ?? true),
     );
   }, [setDarkModeOn]);
 
@@ -246,14 +250,14 @@ import { set, get } from 'idb-keyval';
 
 export function usePersistedState<TState>(
   keyToPersistWith: string,
-  defaultState: TState
+  defaultState: TState,
 ) {
   const [state, setState] = useState<TState | undefined>(undefined);
 
   useEffect(() => {
     get<TState>(keyToPersistWith).then((retrievedState) =>
       // If a value is retrieved then use it; otherwise default to defaultValue
-      setState(retrievedState ?? defaultState)
+      setState(retrievedState ?? defaultState),
     );
   }, [keyToPersistWith, setState, defaultState]);
 
@@ -262,7 +266,7 @@ export function usePersistedState<TState>(
       setState(newValue);
       set(keyToPersistWith, newValue);
     },
-    [keyToPersistWith, setState]
+    [keyToPersistWith, setState],
   );
 
   return [state, setPersistedValue] as const;
@@ -287,7 +291,7 @@ const sharedStyles = {
 function App() {
   const [darkModeOn, setDarkModeOn] = usePersistedState<boolean>(
     'darkModeOn',
-    true
+    true,
   );
 
   const handleOnChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
@@ -338,5 +342,9 @@ This post has demonstrate how a web application or a PWA can safely store data t
 Finally, I've finished this post illustrating what usage would look like in a React context. Do be aware that there's nothing React specific about our offline storage mechanism. So if you're rolling with Vue, Angular or something else entirely: _this is for you too_! Offline storage is a feature that provide much greater user experiences. Please do consider making use of it in your applications.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/offline-storage-for-pwas/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/offline-storage-for-pwas/" />
+</head>
 
 [The source code for this project can be found here.](https://github.com/johnnyreilly/offline-storage-in-a-pwa)
